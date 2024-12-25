@@ -1,0 +1,16 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    prefer_single_quotes: true
+    avoid_print: true
+    slash_for_doc_comments: true
+    public_member_api_docs: true
+
+analyzer:
+  plugins:
+    - custom_lint
+
+custom_lint:
+  rules:
+    provider_parameters: true
