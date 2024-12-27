@@ -69,7 +69,7 @@ class CreateGamePageStateNotifier extends _$CreateGamePageStateNotifier {
     try {
       if (state.selectedCategoriesCount < 5) throw const GameCreationError.lessThanFiveCategoriesPicked();
       final String roomId = await Supabase.instance.client.rpc('app_create_game_room', params: <String, dynamic>{
-        'selected_categories': state.categories.entries.where((MapEntry<GameCategory, bool> entry) => entry.value).map((MapEntry<GameCategory, bool> entry) => entry.key).toList(),
+        'selected_categories': state.categories.entries.where((MapEntry<GameCategory, bool> entry) => entry.value).map((MapEntry<GameCategory, bool> entry) => entry.key.dbValue).toList(),
         'player_names': state.playerNames
       });
       state = state.copyWith(isCreatingGame: false);
