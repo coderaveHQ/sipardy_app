@@ -43,7 +43,7 @@ class GameRoomPlayers extends StatelessWidget {
             )
           ),
           SizedBox(
-            height: 38.0 + 2 * SPSpacing.sm,
+            height: 40.0 + 2 * SPSpacing.sm,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.only(

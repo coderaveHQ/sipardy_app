@@ -4,7 +4,9 @@ import 'package:gap/gap.dart';
 
 import 'package:sipardy_app/core/common/widgets/sp_button.dart';
 import 'package:sipardy_app/core/common/widgets/sp_scaffold.dart';
+import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/extensions/build_context_x.dart';
+import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/services/router.dart';
 
@@ -42,6 +44,33 @@ class _MenuPageState extends State<MenuPage> {
         ),
         child: Column(
           children: [
+            Image.asset(
+              'assets/images/logo.png',
+              width: context.screenWidth / 2.5,
+              height: context.screenWidth / 2.5
+            ),
+            const Gap(SPSpacing.lg),
+            const SPText(
+              text: 'TAKE A SIP',
+              alignment: TextAlign.center,
+              style: TextStyle(
+                fontSize: 28.0,
+                fontWeight: FontWeight.w900,
+                color: SPColors.white,
+                fontStyle: FontStyle.italic
+              )
+            ),
+            const Gap(SPSpacing.xxl),
+            const SPText(
+              text: 'Wähle aus, ob du ein neues Spiel erstellen- oder einem bestehenden beitreten willst.',
+              alignment: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w400,
+                color: SPColors.white
+              )
+            ),
+            const Gap(SPSpacing.lg),
             SPButton(
               onPressed: _onCreateGame,
               title: 'Erstellen'

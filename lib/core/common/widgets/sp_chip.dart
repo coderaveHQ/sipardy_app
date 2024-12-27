@@ -44,14 +44,14 @@ class SPChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 38.0,
+      height: 40.0,
       child: IntrinsicWidth(
         child: RawMaterialButton(
           onPressed: isEnabled ? onPressed : null,
           enableFeedback: isEnabled,
           fillColor: backgroundColor,
           padding: const EdgeInsets.symmetric(horizontal: SPSpacing.md),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(19.0)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           child: Center(
             child: SPText(
               text: title,
