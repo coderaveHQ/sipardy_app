@@ -9,9 +9,6 @@ import 'package:sipardy_app/src/models/game_room.dart';
 
 part 'game_room_page_state_notifier.g.dart';
 
-/// FIXME: Players are currently allowed to press any button in any order which
-/// can result in multiple errors
-
 /// State Notifier for the Game Room
 @riverpod
 class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
