@@ -11,14 +11,22 @@ class App extends ConsumerWidget {
   /// Default constructor
   const App({ super.key });
 
+  /// Unfocuses the primary focus which will be the keyboard most of the time
+  void _unfocusKeyboard() {
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
     final GoRouter router = ref.watch(routerProvider);
     
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: router
+    return GestureDetector(
+      onTap: _unfocusKeyboard,
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: router
+      )
     );
   }
 }
