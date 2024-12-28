@@ -6,6 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:sipardy_app/src/features/create_game/presentation/pages/create_game_page.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/pages/game_room_page.dart';
+import 'package:sipardy_app/src/features/instructions/presentation/pages/instruction_page.dart';
 import 'package:sipardy_app/src/features/join_game/presentation/pages/join_game_page.dart';
 import 'package:sipardy_app/src/features/menu/presentation/pages/menu_page.dart';
 
@@ -49,6 +50,27 @@ class MenuRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const MenuPage();
+  }
+}
+
+/// The instructions route
+@TypedGoRoute<InstructionsRoute>(path: InstructionsRoute.location)
+class InstructionsRoute extends GoRouteData {
+
+  /// Default constructor
+  const InstructionsRoute();
+
+  /// The location of the route
+  static const String location = '/instructions';
+  /// The full path of the route
+  static const String path = location;
+
+  /// The parent navigator key
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const InstructionPage();
   }
 }
 

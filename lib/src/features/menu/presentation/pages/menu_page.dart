@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:sipardy_app/core/common/widgets/sp_app_bar.dart';
 
 import 'package:sipardy_app/core/common/widgets/sp_button.dart';
 import 'package:sipardy_app/core/common/widgets/sp_scaffold.dart';
@@ -22,6 +24,11 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
 
+  /// Navigates to the instructions page
+  Future<void> _onInstructions() async {
+    await const InstructionsRoute().push(context);
+  }
+
   /// Navigates to the create game route
   Future<void> _onCreateGame() async {
     await const CreateGameRoute().push(context);
@@ -35,6 +42,15 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return SPScaffold(
+      appBar: SPAppBar(
+        title: 'Spielmenü',
+        actionButtons: [
+          SPAppBarButton(
+            onPressed: _onInstructions,
+            icon: LucideIcons.circleHelp
+          )
+        ]
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
           top: context.topPadding + SPSpacing.lg,
