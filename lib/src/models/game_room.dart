@@ -72,4 +72,7 @@ class GameRoom {
 
   /// Checks if the game is finished
   bool get isGameFinished => questions.every((GameRoomQuestion question) => question.answer != null);
+
+  /// Indicates if any question is selected
+  bool get isAnyQuestionSelected => questions.any((GameRoomQuestion question) => question.selected);
 }

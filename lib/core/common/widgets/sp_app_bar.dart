@@ -22,12 +22,16 @@ class SPAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// Action buttons
   final List<SPAppBarButton> actionButtons;
 
+  /// Will display any widget at the end of the App Bar
+  final Widget? extra;
+
   /// Default constructor
   const SPAppBar({ 
     super.key,
     this.backButton,
     this.title = '',
-    this.actionButtons = const <SPAppBarButton>[]
+    this.actionButtons = const <SPAppBarButton>[],
+    this.extra
   });
 
   @override
@@ -50,7 +54,7 @@ class SPAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             if (backButton != null) backButton!,
-            if (backButton != null && title.isNotEmpty) const Gap(SPSpacing.md),
+            if (backButton != null) const Gap(SPSpacing.md),
             Expanded(
               child: SPText(
                 text: title,
@@ -63,7 +67,7 @@ class SPAppBar extends StatelessWidget implements PreferredSizeWidget {
                 )
               )
             ),
-            if (title.isNotEmpty && actionButtons.isNotEmpty) const Gap(SPSpacing.md),
+            if (actionButtons.isNotEmpty) const Gap(SPSpacing.md),
             if (actionButtons.isNotEmpty) Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: List.generate(actionButtons.length, (int index) {
@@ -72,7 +76,9 @@ class SPAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: actionButtons[index]
                 );
               })
-            )
+            ),
+            if (extra != null && actionButtons.isNotEmpty) const Gap(SPSpacing.md),
+            if (extra != null) extra!
           ]
         )
       )

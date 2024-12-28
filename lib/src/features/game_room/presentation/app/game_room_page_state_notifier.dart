@@ -1,7 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'package:sipardy_app/src/features/game_room/presentation/app/game_room_is_syncing_notifier.dart';
 import 'package:sipardy_app/src/models/game_room_player.dart';
 import 'package:sipardy_app/core/utils/enums/game_action.dart';
 import 'package:sipardy_app/src/models/game_room_question.dart';
@@ -29,15 +29,12 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
         data['players'] = await Supabase.instance.client
           .from('game_room_players')
           .select('*')
-          .eq('room_id', roomId)
-          .order('position', ascending: true);
+          .eq('room_id', roomId);
         
         data['questions'] = await Supabase.instance.client
           .from('game_room_questions')
           .select('*, game_questions(*)')
-          .eq('room_id', roomId)
-          .order('category', referencedTable: 'game_questions')
-          .order('points', referencedTable: 'game_questions');
+          .eq('room_id', roomId);
 
         return GameRoom.fromJson(data);
       });
@@ -45,7 +42,7 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
 
   /// Updates the state based on chossing a question
   /// When something goes wrong the state will be reset
-  void chooseQuestion(String questionId) {
+  Future<void> chooseQuestion(String questionId) async {
     void updateState({ required bool revert }) {
       final List<GameRoomQuestion> updatedQuestions = state.value!.questions.map<GameRoomQuestion>((GameRoomQuestion question) {
         if (question.questionId == questionId) return question.copyWith(selected: !revert);
@@ -60,8 +57,10 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
     
     updateState(revert: false);
 
+    ref.watch(gameRoomIsSyncingNotifierProvider.notifier).setIsSyncing();
+
     try {
-      Supabase.instance.client.rpc('app_choose_question', params: <String, dynamic>{
+      await Supabase.instance.client.rpc('app_choose_question', params: <String, dynamic>{
         'in_room_id' : roomId,
         'in_question_id' : questionId
       });
@@ -69,11 +68,13 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
       updateState(revert: true);
       state = AsyncValue.error(e, StackTrace.current);
     }
+
+    ref.watch(gameRoomIsSyncingNotifierProvider.notifier).setIsNotSyncing();
   }
 
   /// Updates the state based on showing an answer
   /// When something goes wrong the state will be reset
-  void showAnswer() {
+  Future<void> showAnswer() async {
     void updateState({ required bool revert }) {
       state = AsyncValue.data(state.value!.copyWith(
         currentAction: revert ? GameAction.showQuestion : GameAction.showAnswer
@@ -82,19 +83,23 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
     
     updateState(revert: false);
 
+    ref.watch(gameRoomIsSyncingNotifierProvider.notifier).setIsSyncing();
+
     try {
-      Supabase.instance.client.rpc('app_show_answer', params: <String, dynamic>{
+      await Supabase.instance.client.rpc('app_show_answer', params: <String, dynamic>{
         'in_room_id' : roomId
       });
     } catch (e) {
       updateState(revert: true);
       state = AsyncValue.error(e, StackTrace.current);
     }
+
+    ref.watch(gameRoomIsSyncingNotifierProvider.notifier).setIsNotSyncing();
   }
 
   /// Updates the state based on answering wether the answer was correct
   /// When something goes wrong the state will be reset
-  void answer({ required bool correct }) {
+  Future<void> answer({ required bool correct }) async {
     final GameRoomQuestion currentQuestion = state.value!.questions.firstWhere((GameRoomQuestion question) => question.selected);
     final int currentPlayerPosition = state.value!.playerTurn.position;
     final int nextPlayerPosition = currentPlayerPosition == state.value!.players.length ? 1 : currentPlayerPosition + 1;
@@ -131,8 +136,10 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
     
     updateState(revert: false);
 
+    ref.watch(gameRoomIsSyncingNotifierProvider.notifier).setIsSyncing();
+
     try {
-      Supabase.instance.client.rpc('app_answer', params: <String, dynamic>{
+      await Supabase.instance.client.rpc('app_answer', params: <String, dynamic>{
         'in_room_id' : roomId,
         'in_correct' : correct
       });
@@ -140,5 +147,7 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
       updateState(revert: true);
       state = AsyncValue.error(e, StackTrace.current);
     }
+
+    ref.watch(gameRoomIsSyncingNotifierProvider.notifier).setIsNotSyncing();
   }
 }

@@ -20,6 +20,13 @@ class GameRoomPlayers extends StatelessWidget {
     required this.players
   });
 
+  /// Gets the players ordered by their position
+  List<GameRoomPlayer> get _orderedPlayers {
+    final List<GameRoomPlayer> playersList = List<GameRoomPlayer>.from(players);
+    playersList.sort((GameRoomPlayer a, GameRoomPlayer b) => a.position.compareTo(b.position));
+    return playersList;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,9 +59,9 @@ class GameRoomPlayers extends StatelessWidget {
                 top: SPSpacing.sm,
                 bottom: SPSpacing.sm
               ),
-              itemCount: players.length,
+              itemCount: _orderedPlayers.length,
               itemBuilder: (BuildContext context, int index) {
-                final GameRoomPlayer player = players[index];
+                final GameRoomPlayer player = _orderedPlayers[index];
                 return Padding(
                   padding: EdgeInsets.only(left: index == 0 ? 0.0 : SPSpacing.md),
                   child: SPChip.basic(

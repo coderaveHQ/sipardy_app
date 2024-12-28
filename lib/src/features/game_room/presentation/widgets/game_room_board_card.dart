@@ -31,19 +31,24 @@ class GameRoomBoardCard extends StatelessWidget {
   /// Question
   final GameRoomQuestion? question;
 
+  /// Inidicates if the card can be pressed
+  final bool isEnabled;
+
   /// Constrcutor for the category card
   const GameRoomBoardCard.category({
     super.key,
     required this.category
   })  : type = GameRoomBoardCardType.category,
         question = null,
-        onPressed = null;
+        onPressed = null,
+        isEnabled = false;
 
   /// Constrcutor for the question card
   const GameRoomBoardCard.question({
     super.key,
     this.onPressed,
-    required this.question
+    required this.question,
+    required this.isEnabled
   })  : type = GameRoomBoardCardType.question,
         category = null;
 
@@ -56,8 +61,8 @@ class GameRoomBoardCard extends StatelessWidget {
       width: double.infinity,
       height: type == GameRoomBoardCardType.category ? 60.0 : 50.0,
       child: RawMaterialButton(
-        onPressed: type == GameRoomBoardCardType.category ? null : onPressed,
-        enableFeedback: type == GameRoomBoardCardType.question && question!.answer == null,
+        onPressed: isEnabled ? onPressed : null,
+        enableFeedback: isEnabled,
         fillColor: type == GameRoomBoardCardType.category ? SPColors.primaryButtonBackground : question!.selected ? SPColors.blue500 : question!.answer == null ? SPColors.secondaryBackground : question!.answer! ? SPColors.green500 : SPColors.red500,
         padding: const EdgeInsets.all(SPSpacing.sm),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),

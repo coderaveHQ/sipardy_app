@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sipardy_app/core/common/widgets/sp_button.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
@@ -8,6 +9,7 @@ import 'package:sipardy_app/core/extensions/build_context_x.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/utils/enums/game_action.dart';
+import 'package:sipardy_app/src/features/game_room/presentation/app/game_room_is_syncing_notifier.dart';
 import 'package:sipardy_app/src/models/game_room_question.dart';
 
 /// Widget for interacting with the game
@@ -85,7 +87,7 @@ class GameRoomActionChoose extends StatelessWidget {
 }
 
 /// Widget for the show question action
-class GameRoomActionShowQuestion extends StatelessWidget {
+class GameRoomActionShowQuestion extends ConsumerWidget {
 
   /// The plaint text question
   final String question;
@@ -101,7 +103,10 @@ class GameRoomActionShowQuestion extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final bool isSyncing = ref.watch(gameRoomIsSyncingNotifierProvider);
+
     return Column(
       children: [
         Row(
@@ -131,7 +136,8 @@ class GameRoomActionShowQuestion extends StatelessWidget {
         const Gap(SPSpacing.lg),
         SPButton(
           onPressed: onShowAnswer,
-          title: 'Antwort anzeigen'
+          title: 'Antwort anzeigen',
+          isEnabled: !isSyncing
         )
       ]
     );
@@ -139,7 +145,7 @@ class GameRoomActionShowQuestion extends StatelessWidget {
 }
 
 /// Widget for the show answer action
-class GameRoomActionShowAnswer extends StatelessWidget {
+class GameRoomActionShowAnswer extends ConsumerWidget {
 
   /// The plain text answer
   final String answer;
@@ -155,7 +161,10 @@ class GameRoomActionShowAnswer extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final bool isSyncing = ref.watch(gameRoomIsSyncingNotifierProvider);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -201,7 +210,8 @@ class GameRoomActionShowAnswer extends StatelessWidget {
                 onPressed: () => onAnswer.call(true),
                 backgroundColor: SPColors.green500,
                 foregroundColor: SPColors.white,
-                title: 'Richtig'
+                title: 'Richtig',
+                isEnabled: !isSyncing
               )
             ),
             const Gap(SPSpacing.md),
@@ -210,7 +220,8 @@ class GameRoomActionShowAnswer extends StatelessWidget {
                 onPressed: () => onAnswer.call(false),
                 backgroundColor: SPColors.red500,
                 foregroundColor: SPColors.white,
-                title: 'Falsch'
+                title: 'Falsch',
+                isEnabled: !isSyncing
               )
             )
           ]

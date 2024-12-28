@@ -11,6 +11,7 @@ import 'package:sipardy_app/core/common/widgets/sp_scaffold.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/extensions/object_x.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
+import 'package:sipardy_app/src/features/game_room/presentation/app/game_room_is_syncing_notifier.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/app/game_room_page_state_notifier.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_action.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_board.dart';
@@ -41,18 +42,18 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
   GameRoomPageStateNotifierProvider get _pageStateNotifierProvider => gameRoomPageStateNotifierProvider(widget.roomId);
 
   /// Action on choosing a question
-  void chooseQuestion(String questionId) async {
-    ref.read(_pageStateNotifierProvider.notifier).chooseQuestion(questionId);
+  Future<void> chooseQuestion(String questionId) async {
+    await ref.read(_pageStateNotifierProvider.notifier).chooseQuestion(questionId);
   }
 
   /// Action on showing the answer
-  void showAnswer() async {
-    ref.read(_pageStateNotifierProvider.notifier).showAnswer();
+  Future<void> showAnswer() async {
+    await ref.read(_pageStateNotifierProvider.notifier).showAnswer();
   }
 
   /// Action on answering
-  void answer(bool correct) async {
-    ref.read(_pageStateNotifierProvider.notifier).answer(correct: correct);
+  Future<void> answer(bool correct) async {
+    await ref.read(_pageStateNotifierProvider.notifier).answer(correct: correct);
   }
 
   /// Handles the finished state of the game
@@ -71,13 +72,20 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
   Widget build(BuildContext context) {
 
     final AsyncValue<GameRoom> pageState = ref.watch(_pageStateNotifierProvider);
+    final bool isSyncing = ref.watch(gameRoomIsSyncingNotifierProvider);
 
     ref.listen(_pageStateNotifierProvider, _handleGameRoomPageStateUpdate);
 
     return SPScaffold(
       appBar: SPAppBar(
         title: 'Raum: ${ widget.roomId }',
-        backButton: const SPAppBarBackButton()
+        backButton: const SPAppBarBackButton(),
+        extra: isSyncing
+          ? const SPCircularProgressIndicator(
+            color: SPColors.white,
+            size: 16.0
+          )
+          : null
       ),
       body: pageState.when(
         data: (GameRoom room) => Column(
@@ -87,7 +95,8 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
             Expanded(
               child: GameRoomBoard(
                 questions: room.questions,
-                onChooseQuestion: (String questionId) => chooseQuestion(questionId)
+                onChooseQuestion: (String questionId) => chooseQuestion(questionId),
+                isAnyQuestionSelected: room.isAnyQuestionSelected
               )
             ),
             GameRoomAction(
