@@ -69,4 +69,7 @@ class GameRoom {
 
   /// Gets the currently selected question if there is one
   GameRoomQuestion? get selectedQuestion => questions.where((GameRoomQuestion question) => question.selected).firstOrNull;
+
+  /// Checks if the game is finished
+  bool get isGameFinished => questions.every((GameRoomQuestion question) => question.answer != null);
 }

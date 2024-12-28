@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sipardy_app/core/common/widgets/sp_app_bar.dart';
@@ -11,6 +14,7 @@ import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/app/game_room_page_state_notifier.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_action.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_board.dart';
+import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_end_card.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_player_turn.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_players.dart';
 import 'package:sipardy_app/src/models/game_room.dart';
@@ -46,13 +50,21 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
     ref.read(_pageStateNotifierProvider.notifier).showAnswer();
   }
 
+  /// Action on answering
   void answer(bool correct) async {
     ref.read(_pageStateNotifierProvider.notifier).answer(correct: correct);
+  }
+
+  /// Handles the finished state of the game
+  Future<void> _handleGameFinished() async {
+    await showGameRoomEndCard(context);
+    if (mounted) context.pop();
   }
 
   /// Handles error cases only by showing a toast
   void _handleGameRoomPageStateUpdate(AsyncValue<GameRoom>? last, AsyncValue<GameRoom> next) {
     if (next.hasError) next.error!.showErrorToast(context);
+    if (next.value?.isGameFinished ?? false) _handleGameFinished();
   }
 
   @override
