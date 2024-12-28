@@ -92,7 +92,7 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
           top: SPSpacing.lg,
           left: context.leftPadding + SPSpacing.lg,
           right: context.rightPadding + SPSpacing.lg,
-          bottom: context.bottomPaddingOrKeyboard + SPSpacing.lg
+          bottom: context.bottomPaddingOrZeroWhenKeyboard + SPSpacing.lg
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
