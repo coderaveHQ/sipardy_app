@@ -104,14 +104,29 @@ class GameRoomActionShowQuestion extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SPText(
-          text: question,
-          alignment: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.w600,
-            color: SPColors.white
-          )
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SPText(
+              text: 'FRAGE:',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600,
+                color: SPColors.white
+              )
+            ),
+            const Gap(SPSpacing.md),
+            Expanded(
+              child: SPText(
+                text: question,
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w400,
+                  color: SPColors.white
+                )
+              )
+            )
+          ]
         ),
         const Gap(SPSpacing.lg),
         SPButton(
@@ -142,24 +157,40 @@ class GameRoomActionShowAnswer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SPText(
-          text: 'Antwort: $answer',
-          alignment: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.w600,
-            color: SPColors.white
-          )
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SPText(
+              text: 'ANTWORT:',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600,
+                color: SPColors.white
+              )
+            ),
+            const Gap(SPSpacing.md),
+            Expanded(
+              child: SPText(
+                text: answer,
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w400,
+                  color: SPColors.white
+                )
+              )
+            )
+          ]
         ),
         const Gap(SPSpacing.lg),
         const SPText(
           text: 'Wurde die Frage korrekt beantwortet?',
-          alignment: TextAlign.center,
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.w600,
-            color: SPColors.white
+            color: SPColors.white,
+            fontStyle: FontStyle.italic
           )
         ),
         const Gap(SPSpacing.lg),
@@ -168,6 +199,8 @@ class GameRoomActionShowAnswer extends StatelessWidget {
             Expanded(
               child: SPButton(
                 onPressed: () => onAnswer.call(true),
+                backgroundColor: SPColors.green500,
+                foregroundColor: SPColors.white,
                 title: 'Richtig'
               )
             ),
@@ -175,6 +208,8 @@ class GameRoomActionShowAnswer extends StatelessWidget {
             Expanded(
               child: SPButton(
                 onPressed: () => onAnswer.call(false),
+                backgroundColor: SPColors.red500,
+                foregroundColor: SPColors.white,
                 title: 'Falsch'
               )
             )
