@@ -17,8 +17,16 @@ class InstructionPage extends StatelessWidget {
   /// Default constructor
   const InstructionPage({ super.key });
 
+  /// Opens the privacy policy page in the default browser
   Future<void> _openPrivacyPolicy(BuildContext context) async {
     final Uri url = Uri.parse('https://coderavehq.github.io/sipardy_app/privacy-policy.html');
+    final bool opened = await launchUrl(url);
+    if (!opened && context.mounted) const LaunchError.urlNotOpened().showToast(context);
+  }
+
+  /// Opens the support page in the default browser
+  Future<void> _openSupport(BuildContext context) async {
+    final Uri url = Uri.parse('https://coderavehq.github.io/sipardy_app/support.html');
     final bool opened = await launchUrl(url);
     if (!opened && context.mounted) const LaunchError.urlNotOpened().showToast(context);
   }
@@ -162,6 +170,29 @@ class InstructionPage extends StatelessWidget {
               onTap: () => _openPrivacyPolicy(context),
               child: const SPText(
                 text: 'https://coderavehq.github.io/sipardy_app/privacy-policy.html',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w400,
+                  color: SPColors.blue500,
+                  decoration: TextDecoration.underline,
+                  decorationColor: SPColors.blue500
+                )
+              )
+            ),
+            const Gap(SPSpacing.xxl),
+            const SPText(
+              text: 'Support:',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w600,
+                color: SPColors.white
+              )
+            ),
+            const Gap(SPSpacing.xl),
+            GestureDetector(
+              onTap: () => _openSupport(context),
+              child: const SPText(
+                text: 'https://coderavehq.github.io/sipardy_app/support.html',
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w400,
