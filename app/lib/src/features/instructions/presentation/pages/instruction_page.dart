@@ -1,5 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+
 import 'package:gap/gap.dart';
+import 'package:sipardy_app/core/error/launch_error.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:sipardy_app/core/common/widgets/sp_app_bar.dart';
 import 'package:sipardy_app/core/common/widgets/sp_scaffold.dart';
@@ -13,6 +16,12 @@ class InstructionPage extends StatelessWidget {
 
   /// Default constructor
   const InstructionPage({ super.key });
+
+  Future<void> _openPrivacyPolicy(BuildContext context) async {
+    final Uri url = Uri.parse('https://coderavehq.github.io/sipardy_app/privacy-policy.html');
+    final bool opened = await launchUrl(url);
+    if (!opened && context.mounted) const LaunchError.urlNotOpened().showToast(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +37,10 @@ class InstructionPage extends StatelessWidget {
           right: context.rightPadding + SPSpacing.lg,
           bottom: context.bottomPadding + SPSpacing.lg
         ),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SPText(
+            const SPText(
               text: 'Hier ist alles was du wissen musst:',
               style: TextStyle(
                 fontSize: 20.0,
@@ -39,8 +48,8 @@ class InstructionPage extends StatelessWidget {
                 color: SPColors.white
               )
             ),
-            Gap(SPSpacing.xxl),
-            Row(
+            const Gap(SPSpacing.xl),
+            const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SPText(
@@ -64,8 +73,8 @@ class InstructionPage extends StatelessWidget {
                 )
               ]
             ),
-            Gap(SPSpacing.lg),
-            Row(
+            const Gap(SPSpacing.lg),
+            const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SPText(
@@ -89,8 +98,8 @@ class InstructionPage extends StatelessWidget {
                 )
               ]
             ),
-            Gap(SPSpacing.lg),
-            Row(
+            const Gap(SPSpacing.lg),
+            const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SPText(
@@ -114,8 +123,8 @@ class InstructionPage extends StatelessWidget {
                 )
               ]
             ),
-            Gap(SPSpacing.lg),
-            Row(
+            const Gap(SPSpacing.lg),
+            const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SPText(
@@ -138,6 +147,29 @@ class InstructionPage extends StatelessWidget {
                   )
                 )
               ]
+            ),
+            const Gap(SPSpacing.xxl),
+            const SPText(
+              text: 'Datenschutzrichtlinie:',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w600,
+                color: SPColors.white
+              )
+            ),
+            const Gap(SPSpacing.xl),
+            GestureDetector(
+              onTap: () => _openPrivacyPolicy(context),
+              child: const SPText(
+                text: 'https://coderavehq.github.io/sipardy_app/privacy-policy.html',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w400,
+                  color: SPColors.blue500,
+                  decoration: TextDecoration.underline,
+                  decorationColor: SPColors.blue500
+                )
+              )
             )
           ]
         )
