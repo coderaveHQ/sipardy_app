@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -16,7 +20,7 @@ Future<void> main() async {
   final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
   // Show the splash screen
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  if (kIsWeb || Platform.isAndroid || Platform.isIOS) FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Set the preferred orientations
   await SystemChrome.setPreferredOrientations([ DeviceOrientation.portraitUp ]);
@@ -34,8 +38,11 @@ Future<void> main() async {
     )
   );
 
+  // Configure the desktop window
+  configureDesktopWindow();
+
   // Remove the splash screen
-  FlutterNativeSplash.remove();
+  if (kIsWeb || Platform.isAndroid || Platform.isIOS) FlutterNativeSplash.remove();
 }
 
 /// Loads the environment variables
@@ -50,4 +57,16 @@ Future<void> initializeSupabase() async {
     anonKey: Env.supabaseAnonKey,
     authOptions: const FlutterAuthClientOptions(detectSessionInUri: false)
   );
+}
+
+/// Configures the desktop window
+void configureDesktopWindow() {
+  if (kIsWeb || Platform.isAndroid || Platform.isIOS) return;
+  doWhenWindowReady(() {
+    const initialSize = Size(600.0, 450.0);
+    appWindow.minSize = initialSize;
+    appWindow.size = initialSize;
+    appWindow.alignment = Alignment.center;
+    appWindow.show();
+  });
 }
