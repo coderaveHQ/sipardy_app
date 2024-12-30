@@ -1,4 +1,4 @@
-# Simple workflow for deploying static content to GitHub Pages
+# Simple workflow for migrating the Supabase database
 name: Migrate Database
 
 on:
@@ -10,19 +10,34 @@ on:
   workflow_dispatch:
 
 jobs:
+
   # Single migration job
   migrate:
+
+    # Run on latest Ubuntu instance
     runs-on: ubuntu-latest
+
+    # Setup environment variables
     env:
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
       SUPABASE_DB_PASSWORD: ${{ secrets.PRODUCTION_DB_PASSWORD }}
       PROJECT_ID: jjfaxibrpacbjyjqguug
 
     steps:
+
+      # Checkout the repository
       - uses: actions/checkout@v4
+
+      # Change into subfolder
+      - run: cd app
+
+      # Run basic Supabase setup
       - uses: supabase/setup-cli@v1
         with:
           version: latest
 
+      # Link the remote Supabase project
       - run: supabase link --project-ref $PROJECT_ID
+
+      # Push migrations
       - run: supabase db push
