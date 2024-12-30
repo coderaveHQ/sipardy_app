@@ -4,5 +4,3 @@ flutter_native_splash:
 
   android_12:
     image: assets/splash_icons/splash_icon.png
-
-  web: false

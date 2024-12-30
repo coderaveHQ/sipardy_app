@@ -8,6 +8,7 @@ import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/extensions/build_context_x.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
+import 'package:sipardy_app/core/utils/constants/ui_constants.dart';
 import 'package:sipardy_app/core/utils/enums/game_action.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/app/game_room_is_syncing_notifier.dart';
 import 'package:sipardy_app/src/models/game_room_question.dart';
@@ -39,7 +40,7 @@ class GameRoomAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: UIConstants.maxWidthBreakpoint,
       alignment: Alignment.center,
       padding: EdgeInsets.only(
         left: context.leftPadding + SPSpacing.lg,

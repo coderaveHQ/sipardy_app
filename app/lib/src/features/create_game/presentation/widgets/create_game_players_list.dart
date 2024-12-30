@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:gap/gap.dart';
+
 import 'package:sipardy_app/core/common/widgets/sp_chip.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
@@ -34,24 +36,40 @@ class CreateGamePlayersList extends StatelessWidget {
         style: TextStyle(
           fontSize: 14.0,
           fontWeight: FontWeight.w400,
-          color: SPColors.gray300
+          color: SPColors.gray300,
+          fontStyle: FontStyle.italic
         )
       );
     }
 
-    return Wrap(
-      spacing: SPSpacing.md,
-      runSpacing: SPSpacing.md,
-      children: List.generate(playerNames.length, (int index) {
-        final String playerName = playerNames[index];
-        return SPChip.clickable(
-          onPressed: () => onPressed?.call(index),
-          title: playerName,
-          isEnabled: isEnabled,
-          backgroundColor: PlayerUtils.getColorForIndex(index),
-          foregroundColor: SPColors.white
-        );
-      })
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          spacing: SPSpacing.md,
+          runSpacing: SPSpacing.md,
+          children: List.generate(playerNames.length, (int index) {
+            final String playerName = playerNames[index];
+            return SPChip.clickable(
+              onPressed: () => onPressed?.call(index),
+              title: playerName,
+              isEnabled: isEnabled,
+              backgroundColor: PlayerUtils.getColorForIndex(index),
+              foregroundColor: SPColors.white
+            );
+          })
+        ),
+        const Gap(SPSpacing.md),
+        const SPText(
+          text: 'Zum Entfernen auf Namen klicken',
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w400,
+            color: SPColors.gray300,
+            fontStyle: FontStyle.italic
+          )
+        )
+      ]
     );
   }
 }

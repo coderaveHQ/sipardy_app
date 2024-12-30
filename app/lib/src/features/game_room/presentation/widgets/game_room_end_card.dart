@@ -8,9 +8,11 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:sipardy_app/core/common/widgets/sp_button.dart';
+import 'package:sipardy_app/core/common/widgets/sp_max_size.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
+import 'package:sipardy_app/core/utils/constants/ui_constants.dart';
 
 /// Shows a dialog for when a game is finished
 Future<void> showGameRoomEndCard(BuildContext context) async {
@@ -75,26 +77,29 @@ class GameRoomEndCard extends StatelessWidget {
     return Dialog(
       backgroundColor: SPColors.primaryBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-      child: Padding(
-        padding: const EdgeInsets.all(SPSpacing.lg),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SPText(
-              text: 'SCHÖNES SPIEL!',
-              alignment: TextAlign.center,
-              style: TextStyle(
-                fontSize: 22.0,
-                fontWeight: FontWeight.w900,
-                color: SPColors.white
+      child: SPMaxSize.width(
+        width: UIConstants.maxWidthBreakpoint, 
+        child: Padding(
+          padding: const EdgeInsets.all(SPSpacing.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SPText(
+                text: 'SCHÖNES SPIEL!',
+                alignment: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.w900,
+                  color: SPColors.white
+                )
+              ),
+              const Gap(SPSpacing.lg),
+              SPButton(
+                onPressed: () => _onPressed(context),
+                title: 'Spiel beenden'
               )
-            ),
-            const Gap(SPSpacing.lg),
-            SPButton(
-              onPressed: () => _onPressed(context),
-              title: 'Spiel beenden'
-            )
-          ]
+            ]
+          )
         )
       )
     );

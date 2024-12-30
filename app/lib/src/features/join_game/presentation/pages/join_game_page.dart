@@ -12,6 +12,7 @@ import 'package:sipardy_app/core/extensions/build_context_x.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/services/router.dart';
+import 'package:sipardy_app/core/utils/ui_utils.dart';
 
 /// The join game page
 class JoinGamePage extends StatefulHookWidget {
@@ -51,8 +52,8 @@ class _JoinGamePageState extends State<JoinGamePage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
           top: SPSpacing.lg,
-          left: context.leftPadding + SPSpacing.lg,
-          right: context.rightPadding + SPSpacing.lg,
+          left: context.leftPadding + SPSpacing.lg + UIUtils.additionalPaddingForCenteredMaxWidth(context),
+          right: context.rightPadding + SPSpacing.lg + UIUtils.additionalPaddingForCenteredMaxWidth(context),
           bottom: context.bottomPaddingOrZeroWhenKeyboard + SPSpacing.lg
         ),
         child: Column(

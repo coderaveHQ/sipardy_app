@@ -18,6 +18,7 @@ import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/services/router.dart';
 import 'package:sipardy_app/core/services/toaster.dart';
 import 'package:sipardy_app/core/utils/enums/game_category.dart';
+import 'package:sipardy_app/core/utils/ui_utils.dart';
 import 'package:sipardy_app/src/features/create_game/presentation/app/create_game_page_state_notifier.dart';
 import 'package:sipardy_app/src/features/create_game/presentation/widgets/create_game_categories_list.dart';
 import 'package:sipardy_app/src/features/create_game/presentation/widgets/create_game_players_list.dart';
@@ -90,15 +91,15 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
           top: SPSpacing.lg,
-          left: context.leftPadding + SPSpacing.lg,
-          right: context.rightPadding + SPSpacing.lg,
+          left: context.leftPadding + SPSpacing.lg + UIUtils.additionalPaddingForCenteredMaxWidth(context),
+          right: context.rightPadding + SPSpacing.lg + UIUtils.additionalPaddingForCenteredMaxWidth(context),
           bottom: context.bottomPaddingOrZeroWhenKeyboard + SPSpacing.lg
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SPText(
-              text: '1. Füge Spieler*innen hinzu.',
+              text: '1. Füge Spieler*innen hinzu',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
@@ -112,8 +113,9 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
                   child: SPTextField(
                     controller: _playerNamesController,
                     icon: LucideIcons.tag,
-                    hint: 'Spielername',
-                    isEnabled: !pageState.isCreatingGame
+                    hint: 'Spieler*inname',
+                    isEnabled: !pageState.isCreatingGame,
+                    autofocus: true
                   )
                 ),
                 const Gap(SPSpacing.sm),
@@ -138,7 +140,7 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
             ),
             const Gap(SPSpacing.xl),
             const SPText(
-              text: '2. Wähle 5 Kategorien.',
+              text: '2. Wähle 5 Kategorien',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
@@ -153,7 +155,7 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
             ),
             const Gap(SPSpacing.xl),
             const SPText(
-              text: '3. Starte das Spiel.',
+              text: '3. Starte das Spiel',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,

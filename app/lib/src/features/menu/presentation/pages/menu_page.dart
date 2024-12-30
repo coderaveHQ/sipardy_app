@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:sipardy_app/core/common/widgets/sp_app_bar.dart';
 
+import 'package:sipardy_app/core/common/widgets/sp_app_bar.dart';
 import 'package:sipardy_app/core/common/widgets/sp_button.dart';
+import 'package:sipardy_app/core/common/widgets/sp_max_size.dart';
 import 'package:sipardy_app/core/common/widgets/sp_scaffold.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/extensions/build_context_x.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/services/router.dart';
+import 'package:sipardy_app/core/utils/ui_utils.dart';
 
 /// The menu page
 class MenuPage extends StatefulWidget {
@@ -51,52 +53,58 @@ class _MenuPageState extends State<MenuPage> {
           )
         ]
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          top: context.topPadding + SPSpacing.lg,
-          left: context.leftPadding + SPSpacing.lg,
-          right: context.rightPadding + SPSpacing.lg,
-          bottom: context.bottomPaddingOrKeyboard + SPSpacing.lg
-        ),
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/images/logo.png',
-              width: context.screenWidth / 2.5,
-              height: context.screenWidth / 2.5
-            ),
-            const Gap(SPSpacing.lg),
-            const SPText(
-              text: 'TAKE A SIP',
-              alignment: TextAlign.center,
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.w900,
-                color: SPColors.white,
-                fontStyle: FontStyle.italic
+      body: Center(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(
+            top: context.topPadding + SPSpacing.lg,
+            left: context.leftPadding + SPSpacing.lg + UIUtils.additionalPaddingForCenteredMaxWidth(context),
+            right: context.rightPadding + SPSpacing.lg + UIUtils.additionalPaddingForCenteredMaxWidth(context),
+            bottom: context.bottomPaddingOrKeyboard + SPSpacing.lg
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SPMaxSize.size(
+                size: const Size.square(200.0), 
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  width: context.screenWidth / 2.5,
+                  height: context.screenWidth / 2.5
+                )
+              ),
+              const Gap(SPSpacing.lg),
+              const SPText(
+                text: 'TAKE A SIP',
+                alignment: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.w900,
+                  color: SPColors.white,
+                  fontStyle: FontStyle.italic
+                )
+              ),
+              const Gap(SPSpacing.xxl),
+              const SPText(
+                text: 'Wähle aus, ob du ein neues Spiel erstellen- oder einem bestehenden beitreten willst.',
+                alignment: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w400,
+                  color: SPColors.white
+                )
+              ),
+              const Gap(SPSpacing.lg),
+              SPButton(
+                onPressed: _onCreateGame,
+                title: 'Erstellen'
+              ),
+              const Gap(SPSpacing.lg),
+              SPButton(
+                onPressed: _onJoinGame,
+                title: 'Beitreten'
               )
-            ),
-            const Gap(SPSpacing.xxl),
-            const SPText(
-              text: 'Wähle aus, ob du ein neues Spiel erstellen- oder einem bestehenden beitreten willst.',
-              alignment: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w400,
-                color: SPColors.white
-              )
-            ),
-            const Gap(SPSpacing.lg),
-            SPButton(
-              onPressed: _onCreateGame,
-              title: 'Erstellen'
-            ),
-            const Gap(SPSpacing.lg),
-            SPButton(
-              onPressed: _onJoinGame,
-              title: 'Beitreten'
-            )
-          ]
+            ]
+          )
         )
       )
     );

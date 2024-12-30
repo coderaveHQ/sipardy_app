@@ -7,10 +7,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:sipardy_app/core/common/widgets/sp_app_bar.dart';
 import 'package:sipardy_app/core/common/widgets/sp_circular_progress_indicator.dart';
+import 'package:sipardy_app/core/common/widgets/sp_max_size.dart';
 import 'package:sipardy_app/core/common/widgets/sp_scaffold.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/extensions/object_x.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
+import 'package:sipardy_app/core/utils/constants/ui_constants.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/app/game_room_is_syncing_notifier.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/app/game_room_page_state_notifier.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_action.dart';
@@ -108,13 +110,16 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
           ]
         ),
         error: (Object e, StackTrace s) => Center(
-          child: SPText(
-            text: e.errorMessage,
-            alignment: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w400,
-              color: SPColors.white
+          child: SPMaxSize.width(
+            width: UIConstants.maxWidthBreakpoint, 
+            child: SPText(
+              text: e.errorMessage,
+              alignment: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w400,
+                color: SPColors.white
+              )
             )
           )
         ),

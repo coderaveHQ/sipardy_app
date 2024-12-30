@@ -25,6 +25,9 @@ class SPTextField extends StatelessWidget {
   /// Whether the text field is enabled
   final bool isEnabled;
 
+  /// Wether autofocus is enabled
+  final bool autofocus;
+
   /// Default constructor
   const SPTextField({
     super.key,
@@ -33,7 +36,8 @@ class SPTextField extends StatelessWidget {
     this.icon,
     this.hint,
     this.obscure = false,
-    this.isEnabled = true
+    this.isEnabled = true,
+    this.autofocus = false
   });
 
   @override
@@ -56,6 +60,7 @@ class SPTextField extends StatelessWidget {
       canRequestFocus: isEnabled,
       obscureText: obscure,
       cursorColor: SPColors.gray400,
+      autofocus: autofocus,
       style: SPTypography.base.copyWith(
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
