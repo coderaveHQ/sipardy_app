@@ -39,10 +39,15 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
 
   /// Updates the state based on chossing a question
   /// When something goes wrong the state will be reset
-  Future<void> chooseQuestion(String questionId) async {
+  Future<void> chooseQuestion(String questionId, int playerPosition) async {
     void updateState({ required bool revert }) {
       final List<GameRoomQuestion> updatedQuestions = state.value!.questions.map<GameRoomQuestion>((GameRoomQuestion question) {
-        if (question.questionId == questionId) return question.copyWith(selected: !revert);
+        if (question.questionId == questionId) {
+          return question.copyWith(
+            selected: !revert,
+            playerPosition: revert ? null : playerPosition
+          );
+        }
         return question;
       }).toList();
 
@@ -59,7 +64,8 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
     try {
       await Supabase.instance.client.rpc('app_choose_question', params: <String, dynamic>{
         'in_room_id' : roomId,
-        'in_question_id' : questionId
+        'in_question_id' : questionId,
+        'in_player_position' : playerPosition
       });
     } catch (e) {
       updateState(revert: true);

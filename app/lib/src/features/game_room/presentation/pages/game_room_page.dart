@@ -20,7 +20,10 @@ import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_roo
 import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_end_card.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_player_turn.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_players.dart';
+import 'package:sipardy_app/src/features/game_room/presentation/widgets/game_room_question_details.dart';
 import 'package:sipardy_app/src/models/game_room.dart';
+import 'package:sipardy_app/src/models/game_room_player.dart';
+import 'package:sipardy_app/src/models/game_room_question.dart';
 
 /// Page for the game room
 class GameRoomPage extends ConsumerStatefulWidget {
@@ -44,8 +47,15 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
   GameRoomPageStateNotifierProvider get _pageStateNotifierProvider => gameRoomPageStateNotifierProvider(widget.roomId);
 
   /// Action on choosing a question
-  Future<void> chooseQuestion(String questionId) async {
-    await ref.read(_pageStateNotifierProvider.notifier).chooseQuestion(questionId);
+  Future<void> chooseQuestion(String questionId, int playerPosition) async {
+    await ref.read(_pageStateNotifierProvider.notifier).chooseQuestion(questionId, playerPosition);
+  }
+
+  /// Shows question details in a dialog
+  Future<void> showQuestionDetails(GameRoom room, String questionId) async {
+    final GameRoomQuestion tempQuestion = room.questions.firstWhere((GameRoomQuestion questions) => questions.questionId == questionId);
+    final GameRoomPlayer tempPlayer = room.players.firstWhere((GameRoomPlayer player) => player.position == tempQuestion.playerPosition);
+    await showGameRoomQuestionDetailsCard(context, question: tempQuestion, player: tempPlayer);
   }
 
   /// Action on showing the answer
@@ -92,12 +102,13 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
       body: pageState.when(
         data: (GameRoom room) => Column(
           children: [
-            GameRoomPlayers(players: room.players),
+            GameRoomPlayers(players: room.players, questions: room.questions),
             GameRoomPlayerTurn(player: room.playerTurn),
             Expanded(
               child: GameRoomBoard(
                 questions: room.questions,
-                onChooseQuestion: (String questionId) => chooseQuestion(questionId),
+                onChooseQuestion: (String questionId) => chooseQuestion(questionId, room.playerTurn.position),
+                onQuestionDetails: (String questionId) => showQuestionDetails(room, questionId),
                 isAnyQuestionSelected: room.isAnyQuestionSelected
               )
             ),

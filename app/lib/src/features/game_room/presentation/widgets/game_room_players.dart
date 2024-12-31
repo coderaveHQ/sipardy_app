@@ -7,6 +7,7 @@ import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/utils/player_utils.dart';
 import 'package:sipardy_app/src/models/game_room_player.dart';
+import 'package:sipardy_app/src/models/game_room_question.dart';
 
 /// Widget for showing all players and their points
 class GameRoomPlayers extends StatelessWidget {
@@ -14,10 +15,14 @@ class GameRoomPlayers extends StatelessWidget {
   /// A list of all players in the room
   final List<GameRoomPlayer> players;
 
+  /// A list of all question to calculate the correct and wrong counters
+  final List<GameRoomQuestion> questions;
+
   /// Default constructor
   const GameRoomPlayers({
     super.key,
-    required this.players
+    required this.players,
+    required this.questions
   });
 
   /// Gets the players ordered by their position
@@ -25,6 +30,24 @@ class GameRoomPlayers extends StatelessWidget {
     final List<GameRoomPlayer> playersList = List<GameRoomPlayer>.from(players);
     playersList.sort((GameRoomPlayer a, GameRoomPlayer b) => a.position.compareTo(b.position));
     return playersList;
+  }
+
+  /// Calculates the right and wrong counts for a player
+  ({ int rightCount, int wrongCount }) calculateRightWrongCountsForPlayer(int playerPosition) {
+    int rightCount = 0;
+    int wrongCount = 0;
+
+    for (GameRoomQuestion question in questions) {
+      if (question.playerPosition == playerPosition && question.answer != null) {
+        if (question.answer!) {
+          rightCount++;
+        } else {
+          wrongCount++;
+        }
+      }
+    }
+
+    return (rightCount: rightCount, wrongCount: wrongCount);
   }
 
   @override
@@ -62,10 +85,11 @@ class GameRoomPlayers extends StatelessWidget {
               itemCount: _orderedPlayers.length,
               itemBuilder: (BuildContext context, int index) {
                 final GameRoomPlayer player = _orderedPlayers[index];
+                final ({ int rightCount, int wrongCount }) counts = calculateRightWrongCountsForPlayer(player.position);
                 return Padding(
                   padding: EdgeInsets.only(left: index == 0 ? 0.0 : SPSpacing.md),
                   child: SPChip.basic(
-                    title: '${ player.name } (${ player.points })',
+                    title: '${ player.name } (${ player.points }, R: ${ counts.rightCount }, F: ${ counts.wrongCount })',
                     backgroundColor: PlayerUtils.getColorForPosition(player.position),
                     foregroundColor: SPColors.white
                   )

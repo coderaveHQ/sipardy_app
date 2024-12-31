@@ -18,6 +18,9 @@ class GameRoomBoard extends ConsumerWidget {
   /// Callback for when a question is chosen
   final void Function(String) onChooseQuestion;
 
+  /// Callback for when a question is long pressed to show details
+  final void Function(String) onQuestionDetails;
+
   /// Indicates if any question is already selected
   final bool isAnyQuestionSelected;
 
@@ -26,6 +29,7 @@ class GameRoomBoard extends ConsumerWidget {
     super.key,
     required this.questions,
     required this.onChooseQuestion,
+    required this.onQuestionDetails,
     required this.isAnyQuestionSelected
   });
 
@@ -61,6 +65,7 @@ class GameRoomBoard extends ConsumerWidget {
               final GameRoomQuestion question = _getQuestionsForCategory(questions, category)[((rowIndex - 3) / 2).toInt()];
               return GameRoomBoardCard.question(
                 onPressed: () => onChooseQuestion.call(question.questionId),
+                onLongPressed: () => onQuestionDetails.call(question.questionId),
                 question: question,
                 isEnabled: !isSyncing && !isAnyQuestionSelected && question.answer == null
               );

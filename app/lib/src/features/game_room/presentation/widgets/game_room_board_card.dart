@@ -22,6 +22,9 @@ class GameRoomBoardCard extends StatelessWidget {
   /// Callback for when the card was selected
   final void Function()? onPressed;
 
+  /// Callback for when the card was long pressed
+  final void Function()? onLongPressed;
+
   /// Type of the card
   final GameRoomBoardCardType type;
 
@@ -41,12 +44,14 @@ class GameRoomBoardCard extends StatelessWidget {
   })  : type = GameRoomBoardCardType.category,
         question = null,
         onPressed = null,
+        onLongPressed = null,
         isEnabled = false;
 
   /// Constrcutor for the question card
   const GameRoomBoardCard.question({
     super.key,
     this.onPressed,
+    this.onLongPressed,
     required this.question,
     required this.isEnabled
   })  : type = GameRoomBoardCardType.question,
@@ -62,6 +67,7 @@ class GameRoomBoardCard extends StatelessWidget {
       height: type == GameRoomBoardCardType.category ? 60.0 : 50.0,
       child: RawMaterialButton(
         onPressed: isEnabled ? onPressed : null,
+        onLongPress: type == GameRoomBoardCardType.question && question!.answer != null ? onLongPressed : null,
         enableFeedback: isEnabled,
         fillColor: type == GameRoomBoardCardType.category ? SPColors.primaryButtonBackground : question!.selected ? SPColors.blue500 : question!.answer == null ? SPColors.secondaryBackground : question!.answer! ? SPColors.green500 : SPColors.red500,
         padding: const EdgeInsets.all(SPSpacing.sm),
@@ -77,7 +83,7 @@ class GameRoomBoardCard extends StatelessWidget {
             )
           )
         )
-      ),
+      )
     );
   }
 }

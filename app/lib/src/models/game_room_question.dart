@@ -21,6 +21,9 @@ class GameRoomQuestion {
   /// Wether the answer to this question was correct
   final bool? answer;
 
+  /// The position of the player that selected the question
+  final int? playerPosition;
+
   /// The root details of this question
   final GameQuestion details;
 
@@ -32,6 +35,7 @@ class GameRoomQuestion {
     required this.updatedAt,
     required this.selected,
     this.answer,
+    this.playerPosition,
     required this.details
   });
 
@@ -44,6 +48,7 @@ class GameRoomQuestion {
       updatedAt: DateTime.parse(json['updated_at'] as String),
       selected: json['selected'] as bool,
       answer: json['answer'] as bool?,
+      playerPosition: json['player_position'] as int?,
       details: GameQuestion.fromJson(Map<String, dynamic>.from(json['game_questions']))
     );
   }
@@ -56,8 +61,10 @@ class GameRoomQuestion {
     DateTime? updatedAt,
     bool? selected,
     bool? answer,
+    int? playerPosition,
     GameQuestion? details,
-    bool removeAnswer = false
+    bool removeAnswer = false,
+    bool removePlayerPosition = false
   }) {
     return GameRoomQuestion(
       roomId: roomId ?? this.roomId,
@@ -66,6 +73,7 @@ class GameRoomQuestion {
       updatedAt: updatedAt ?? this.updatedAt,
       selected: selected ?? this.selected,
       answer: removeAnswer ? null : answer ?? this.answer,
+      playerPosition: removePlayerPosition ? null : this.playerPosition,
       details: details ?? this.details
     );
   }
