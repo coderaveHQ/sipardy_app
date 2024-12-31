@@ -71,7 +71,6 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
   /// Handles the finished state of the game
   Future<void> _handleGameFinished() async {
     await showGameRoomEndCard(context);
-    if (mounted) context.pop();
   }
 
   /// Handles error cases only by showing a toast
