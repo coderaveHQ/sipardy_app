@@ -17,6 +17,11 @@ jobs:
     # Run on latest Ubuntu instance
     runs-on: ubuntu-latest
 
+    # Setup environment variables
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+
     steps:
 
       # Checkout repository
@@ -32,6 +37,15 @@ jobs:
       # Get packages
       - name: Get Flutter packages
         run: flutter pub get
+        working-directory: ./app
+
+      # Create dotenv file
+      - name: Create dotenv file
+        run: |
+          touch dotenv
+          echo SUPABASE_URL=$SUPABASE_URL >> dotenv
+          echo SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY >> dotenv
+          cat dotenv
         working-directory: ./app
 
       # Run code generation
