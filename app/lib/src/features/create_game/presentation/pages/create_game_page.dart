@@ -36,6 +36,7 @@ class CreateGamePage extends StatefulHookConsumerWidget {
 class _CreateGamePageState extends ConsumerState<CreateGamePage> {
 
   late TextEditingController _playerNamesController;
+  late FocusNode _playerNameFocusNode;
 
   /// Creates a new game room
   Future<void> _onCreateGame() async {
@@ -57,6 +58,7 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
     if (playerName.isEmpty) return;
     ref.read(createGamePageStateNotifierProvider.notifier).addPlayerName(playerName);
     _playerNamesController.clear();
+    _playerNameFocusNode.requestFocus();
   }
 
   /// Deletes a player
@@ -78,6 +80,7 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
   Widget build(BuildContext context) {
 
     _playerNamesController = useTextEditingController();
+    _playerNameFocusNode = useFocusNode();
 
     final CreateGamePageState pageState = ref.watch(createGamePageStateNotifierProvider);
 
@@ -115,7 +118,8 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
                     icon: LucideIcons.tag,
                     hint: 'Spieler*inname',
                     isEnabled: !pageState.isCreatingGame,
-                    autofocus: true
+                    autofocus: true,
+                    focusNode: _playerNameFocusNode
                   )
                 ),
                 const Gap(SPSpacing.sm),
