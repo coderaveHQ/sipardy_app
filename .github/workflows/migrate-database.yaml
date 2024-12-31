@@ -28,16 +28,17 @@ jobs:
       # Checkout the repository
       - uses: actions/checkout@v4
 
-      # Change into subfolder
-      - run: cd app
-
       # Run basic Supabase setup
       - uses: supabase/setup-cli@v1
         with:
           version: latest
 
-      # Link the remote Supabase project
-      - run: supabase link --project-ref $PROJECT_ID
+      # Link the remote project
+      - name: Link project
+        working-directory: ./app
+        run: supabase link --project-ref $PROJECT_ID
 
       # Push migrations
-      - run: supabase db push
+      - name: Push migrations
+        working-directory: ./app
+        run: supabase db push
