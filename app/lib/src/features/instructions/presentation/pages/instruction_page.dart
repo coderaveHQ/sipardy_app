@@ -76,7 +76,7 @@ class InstructionPage extends StatelessWidget {
                 Gap(SPSpacing.md),
                 Expanded(
                   child: SPText(
-                    text: 'Wähle eine Karte einer Kategorie. Die Zahl auf der Karte entspricht dem Schwierigkeitsgrad und den damit verbundenen zu gewinnenden Punkte.',
+                    text: 'Wähle eine Karte einer Kategorie. Die Zahl auf der Karte entspricht dem Schwierigkeitsgrad und den damit verbundenen zu gewinnenden Punkten.',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w400,
@@ -151,7 +151,7 @@ class InstructionPage extends StatelessWidget {
                 Gap(SPSpacing.md),
                 Expanded(
                   child: SPText(
-                    text: 'Verteile die Anzahl an gewonnen Punkten als Schlücke oder trinke sie selbst wenn du die Frage falsch bantwortet hast.',
+                    text: 'Verteile die Anzahl an gewonnen Punkten als Schlücke oder trinke sie selbst wenn du die Frage falsch beantwortet hast.',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w400,
