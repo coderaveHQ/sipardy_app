@@ -18,15 +18,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
+
       # Checkout repository
       - uses: actions/checkout@v4
 
       # Install Flutter
-      - name: Install Flutter
+      - name: Set Up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          flutter-version: '3.27.0'
+          channel: 'stable'
+      
+      # Get packages
+      - name: Get Flutter packages
+        run: flutter pub get
+        working-directory: ./app
+
+      # Run code generation
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
+        working-directory: ./app
 
       # Build
       - run: flutter build web
