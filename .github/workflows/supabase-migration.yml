@@ -21,7 +21,6 @@ jobs:
     env:
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
       SUPABASE_DB_PASSWORD: ${{ secrets.PRODUCTION_DB_PASSWORD }}
-      PROJECT_ID: jjfaxibrpacbjyjqguug
 
     steps:
 
@@ -36,7 +35,7 @@ jobs:
       # Link the remote project
       - name: Link project
         working-directory: ./app
-        run: supabase link --project-ref $PROJECT_ID
+        run: supabase link --project-ref=jjfaxibrpacbjyjqguug
 
       # Push migrations
       - name: Push migrations
