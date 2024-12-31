@@ -45,7 +45,10 @@ app.*.map.json
 /android/app/release
 
 # environment variables
-.env
+dotenv
 
 # build_runner generated files
 *.g.dart
+
+# Firebase
+.firebase/

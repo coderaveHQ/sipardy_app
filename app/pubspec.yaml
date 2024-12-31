@@ -61,7 +61,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - .env
+    - dotenv
 
     - assets/images/
 

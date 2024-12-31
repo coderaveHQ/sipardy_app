@@ -1,5 +1,5 @@
 # Simple workflow for migrating the Supabase database
-name: Migrate Database
+name: Supabase Migration
 
 on:
   # Runs on pushes targeting the production branch

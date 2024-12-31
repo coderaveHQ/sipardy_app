@@ -47,7 +47,7 @@ Future<void> main() async {
 
 /// Loads the environment variables
 Future<void> loadEnv() async {
-  await dotenv.load();
+  await dotenv.load(fileName: 'dotenv');
 }
 
 /// Initializes the Supabase client

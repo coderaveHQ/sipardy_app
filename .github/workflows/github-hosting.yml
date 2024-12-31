@@ -1,5 +1,5 @@
-# Simple workflow for deploying the legals pages
-name: Deploy Legals
+# Simple workflow for hosting the legals pages on GitHub Pages
+name: GitHub Hosting
 
 on:
   # Runs on pushes targeting the production branch
