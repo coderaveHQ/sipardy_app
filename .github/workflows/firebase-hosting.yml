@@ -18,9 +18,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
+      # Checkout repository
       - uses: actions/checkout@v4
+
+      # Install Flutter
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+
+      # Build
       - run: flutter build web
         working-directory: ./app
+
+      # Deploy
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
