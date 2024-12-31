@@ -1,11 +1,11 @@
 {
-    "name": "sipardy_app",
-    "short_name": "sipardy_app",
+    "name": "Sipardy",
+    "short_name": "Sipardy",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#22263B",
+    "theme_color": "#22263B",
+    "description": "A drinking game based on Jeopardy.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
