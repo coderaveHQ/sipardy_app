@@ -52,27 +52,29 @@ class GameRoomBoard extends ConsumerWidget {
 
     final bool isSyncing = ref.watch(gameRoomIsSyncingNotifierProvider);
 
-    return Row(
-      children: List.generate(11, (int columnIndex) {
-        if (columnIndex % 2 == 0) return const Gap(SPSpacing.md);
-        return Expanded(
-          child: Column(
-            children: List.generate(13, (int rowIndex) {
-              final GameCategory category = _getCategories(questions)[((columnIndex - 1) / 2).toInt()];
-              if (<int>[0, 2, 12].contains(rowIndex)) const Gap(SPSpacing.lg);
-              if (rowIndex == 1) return GameRoomBoardCard.category(category: category);
-              if (rowIndex % 2 == 0) return const Gap(SPSpacing.md);
-              final GameRoomQuestion question = _getQuestionsForCategory(questions, category)[((rowIndex - 3) / 2).toInt()];
-              return GameRoomBoardCard.question(
-                onPressed: () => onChooseQuestion.call(question.questionId),
-                onLongPressed: () => onQuestionDetails.call(question.questionId),
-                question: question,
-                isEnabled: !isSyncing && !isAnyQuestionSelected && question.answer == null
-              );
-            })
-          )
-        );
-      })
+    return SingleChildScrollView(
+      child: Row(
+        children: List.generate(11, (int columnIndex) {
+          if (columnIndex % 2 == 0) return const Gap(SPSpacing.md);
+          return Expanded(
+            child: Column(
+              children: List.generate(13, (int rowIndex) {
+                final GameCategory category = _getCategories(questions)[((columnIndex - 1) / 2).toInt()];
+                if (<int>[0, 2, 12].contains(rowIndex)) const Gap(SPSpacing.lg);
+                if (rowIndex == 1) return GameRoomBoardCard.category(category: category);
+                if (rowIndex % 2 == 0) return const Gap(SPSpacing.md);
+                final GameRoomQuestion question = _getQuestionsForCategory(questions, category)[((rowIndex - 3) / 2).toInt()];
+                return GameRoomBoardCard.question(
+                  onPressed: () => onChooseQuestion.call(question.questionId),
+                  onLongPressed: () => onQuestionDetails.call(question.questionId),
+                  question: question,
+                  isEnabled: !isSyncing && !isAnyQuestionSelected && question.answer == null
+                );
+              })
+            )
+          );
+        })
+      )
     );
   }
 }
