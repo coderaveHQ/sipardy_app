@@ -9,7 +9,7 @@
     "TAKE A SIP"
     <br />
     <br />
-    <a href="https://https://sipardy-app.web.app/">Web App</a>
+    <a href="https://sipardy-app.web.app/">Web App</a>
   </p>
 </div>
 
