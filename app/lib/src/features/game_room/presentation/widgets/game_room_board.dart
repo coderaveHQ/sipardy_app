@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:sipardy_app/core/extensions/build_context_x.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/utils/enums/game_category.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/app/game_room_is_syncing_notifier.dart';
@@ -53,6 +54,10 @@ class GameRoomBoard extends ConsumerWidget {
     final bool isSyncing = ref.watch(gameRoomIsSyncingNotifierProvider);
 
     return SingleChildScrollView(
+      padding: EdgeInsets.only(
+        left: context.leftPadding + SPSpacing.lg,
+        right: context.rightPadding + SPSpacing.lg
+      ),
       child: Row(
         children: List.generate(11, (int columnIndex) {
           if (columnIndex % 2 == 0) return const Gap(SPSpacing.md);
