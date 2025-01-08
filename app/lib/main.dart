@@ -22,9 +22,6 @@ Future<void> main() async {
   // Show the splash screen
   if (kIsWeb || Platform.isAndroid || Platform.isIOS) FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  // Set the preferred orientations
-  await SystemChrome.setPreferredOrientations([ DeviceOrientation.portraitUp ]);
-
   // Load the environment variables
   await loadEnv();
 
