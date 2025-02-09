@@ -7,8 +7,6 @@ import 'package:sipardy_app/core/utils/enums/game_category.dart';
 
 part 'create_game_page_state_notifier.g.dart';
 
-// TODO: Refactor
-
 /// The state notifier for the create game page
 @riverpod
 class CreateGamePageStateNotifier extends _$CreateGamePageStateNotifier {
@@ -41,6 +39,13 @@ class CreateGamePageStateNotifier extends _$CreateGamePageStateNotifier {
     state = state.copyWith(
       playerNames: const <String>[],
       removeError: true
+    );
+  }
+
+  /// Sets random categories
+  void setRandomCategories() {
+    state = state.copyWith(
+      categories: GameCategory.randomSelection
     );
   }
 

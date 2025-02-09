@@ -1,3 +1,5 @@
+import 'dart:math';
+
 /// Game category enum
 enum GameCategory {
   
@@ -211,6 +213,19 @@ enum GameCategory {
   static Map<GameCategory, bool> get initialSelection {
     final Map<GameCategory, bool> initialMap = <GameCategory, bool>{};
     for (GameCategory category in GameCategory.values) { initialMap[category] = false; }
+    return initialMap;
+  }
+
+  /// Gets 5 random categories
+  static Map<GameCategory, bool> get randomSelection {
+    final Map<GameCategory, bool> initialMap = <GameCategory, bool>{};
+
+    List<GameCategory> categories = GameCategory.values.toList();
+    categories.shuffle(Random());
+    List<GameCategory> randomCategories = categories.take(5).toList();
+
+    for (GameCategory category in GameCategory.values) { initialMap[category] = randomCategories.contains(category); }
+
     return initialMap;
   }
 }

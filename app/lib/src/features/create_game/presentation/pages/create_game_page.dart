@@ -71,6 +71,11 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
     ref.read(createGamePageStateNotifierProvider.notifier).resetPlayerNames();
   }
 
+  /// Sets random categories
+  void _onRandomCategories() {
+    ref.read(createGamePageStateNotifierProvider.notifier).setRandomCategories();
+  }
+
   /// Handles error cases by showing a toast
   void _handleCreateGamePageStateUpdate(CreateGamePageState? last, CreateGamePageState next) {
     if (next.error != null) next.error!.showErrorToast(context);
@@ -132,6 +137,12 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
                 SPSquareButton(
                   onPressed: _onResetPlayers,
                   icon: LucideIcons.rotateCw,
+                  isEnabled: !pageState.isCreatingGame
+                ),
+                const Gap(SPSpacing.sm),
+                SPSquareButton(
+                  onPressed: _onRandomCategories,
+                  icon: LucideIcons.dices,
                   isEnabled: !pageState.isCreatingGame
                 )
               ]
