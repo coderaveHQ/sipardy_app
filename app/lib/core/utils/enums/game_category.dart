@@ -75,6 +75,12 @@ enum GameCategory {
     dbValue: 'food_and_drinks',
   ),
 
+  /// Football
+  football(
+    name: 'Football',
+    dbValue: 'football'
+  ),
+
   /// Geography
   geography(
     name: 'Geografie',
