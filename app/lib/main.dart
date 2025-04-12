@@ -7,8 +7,10 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:sipardy_app/core/services/preferences.dart';
 import 'package:sipardy_app/core/utils/env.dart';
 import 'package:sipardy_app/src/app.dart';
 
@@ -27,10 +29,15 @@ Future<void> main() async {
   // Initialize the Supabase client
   await initializeSupabase();
 
+  final Preferences preferences = await _setupPreferences();
+
   // Run the application
   runApp(
-    const ProviderScope(
-      child: App()
+    ProviderScope(
+      overrides: [
+        preferencesProvider.overrideWithValue(preferences)
+      ],
+      child: const App()
     )
   );
 
@@ -53,6 +60,11 @@ Future<void> initializeSupabase() async {
     anonKey: Env.supabaseAnonKey,
     authOptions: const FlutterAuthClientOptions(detectSessionInUri: false)
   );
+}
+
+Future<Preferences> _setupPreferences() async {
+  final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  return Preferences(sharedPreferences: sharedPreferences);
 }
 
 /// Configures the desktop window
