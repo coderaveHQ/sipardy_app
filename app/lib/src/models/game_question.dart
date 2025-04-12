@@ -18,11 +18,17 @@ class GameQuestion {
   /// The points this question gives
   final int points;
 
-  /// The plain text of the question
-  final String question;
+  /// The plain text of the question in german
+  final String questionDe;
 
-  /// The plain text of the answer
-  final String answer;
+  /// The plain text of the answer in german
+  final String answerDe;
+
+  /// The plain text of the question in english
+  final String questionEn;
+
+  /// The plain text of the answer in english
+  final String answerEn;
 
   /// Default constructor
   const GameQuestion({
@@ -31,8 +37,10 @@ class GameQuestion {
     required this.updatedAt,
     required this.category,
     required this.points,
-    required this.question,
-    required this.answer
+    required this.questionDe,
+    required this.answerDe,
+    required this.questionEn,
+    required this.answerEn
   });
 
   /// Factory method for converting from JSON
@@ -43,8 +51,10 @@ class GameQuestion {
       updatedAt: DateTime.parse(json['updated_at'] as String),
       category: GameCategory.fromDbValue(json['category'] as String),
       points: json['points'] as int,
-      question: json['question'] as String,
-      answer: json['answer'] as String
+      questionDe: json['question_de'] as String,
+      answerDe: json['answer_de'] as String,
+      questionEn: json['question_en'] as String,
+      answerEn: json['answer_en'] as String
     );
   }
 
@@ -55,8 +65,10 @@ class GameQuestion {
     DateTime? updatedAt,
     GameCategory? category,
     int? points,
-    String? question,
-    String? answer
+    String? questionDe,
+    String? answerDe,
+    String? questionEn,
+    String? answerEn
   }) {
     return GameQuestion(
       id: id ?? this.id,
@@ -64,8 +76,10 @@ class GameQuestion {
       updatedAt: updatedAt ?? this.updatedAt,
       category: category ?? this.category,
       points: points ?? this.points,
-      question: question ?? this.question,
-      answer: answer ?? this.answer
+      questionDe: questionDe ?? this.questionDe,
+      answerDe: answerDe ?? this.answerDe,
+      questionEn: questionEn ?? this.questionEn,
+      answerEn: answerEn ?? this.answerEn
     );
   }
 }

@@ -1,211 +1,219 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+
+import 'package:sipardy_app/core/res/localization/custom_localization.dart';
+import 'package:sipardy_app/core/res/localization/language/custom_language_data.dart';
+
 /// Game category enum
 enum GameCategory {
   
   /// Animals
   animals(
-    name: 'Tiere',
     dbValue: 'animals',
   ),
 
   /// Architecture
   architecture(
-    name: 'Architektur',
     dbValue: 'architecture',
   ),
 
   /// Art
   art(
-    name: 'Kunst',
     dbValue: 'art',
   ),
 
   /// Board Games
   boardGames(
-    name: 'Brettspiele',
     dbValue: 'board_games',
   ),
 
   /// Capitals
   capitals(
-    name: 'Hauptstädte',
     dbValue: 'capitals',
   ),
 
   /// Chemistry
   chemistry(
-    name: 'Chemie',
     dbValue: 'chemistry',
   ),
 
   /// Coding
   coding(
-    name: 'Programmierung',
     dbValue: 'coding',
   ),
 
   /// Comics
   comics(
-    name: 'Comics',
     dbValue: 'comics',
   ),
 
   /// Culture
   culture(
-    name: 'Kultur',
     dbValue: 'culture',
   ),
 
   /// Economics
   economics(
-    name: 'Wirtschaft',
     dbValue: 'economics',
   ),
 
   /// Famous People
   famousPeople(
-    name: 'Berühmte Persönlichkeiten',
     dbValue: 'famous_people',
   ),
 
   /// Food and Drinks
   foodAndDrinks(
-    name: 'Essen und Getränke',
     dbValue: 'food_and_drinks',
   ),
 
   /// Football
   football(
-    name: 'Football',
     dbValue: 'football'
   ),
 
   /// Geography
   geography(
-    name: 'Geografie',
     dbValue: 'geography',
   ),
 
   /// History
   history(
-    name: 'Geschichte',
     dbValue: 'history',
   ),
 
   /// Languages
   languages(
-    name: 'Sprachen',
     dbValue: 'languages',
   ),
 
   /// League of Legends
   leagueOfLegends(
-    name: 'League of Legends',
     dbValue: 'league_of_legends',
   ),
 
   /// Literature
   literature(
-    name: 'Literatur',
     dbValue: 'literature',
   ),
 
   /// Math
   math(
-    name: 'Mathematik',
     dbValue: 'math',
   ),
 
   /// Movies
   movies(
-    name: 'Filme',
     dbValue: 'movies',
   ),
 
   /// Music
   music(
-    name: 'Musik',
     dbValue: 'music',
   ),
 
   /// Mythology
   mythology(
-    name: 'Mythologie',
     dbValue: 'mythology',
   ),
 
   /// Nature
   nature(
-    name: 'Natur',
     dbValue: 'nature',
   ),
 
   /// Physics
   physics(
-    name: 'Physik',
     dbValue: 'physics',
   ),
 
   /// Politics
   politics(
-    name: 'Politik',
     dbValue: 'politics',
   ),
 
   /// Science
   science(
-    name: 'Wissenschaft',
     dbValue: 'science',
   ),
 
   /// Soccer
   soccer(
-    name: 'Fußball',
     dbValue: 'soccer',
   ),
 
   /// Space
   space(
-    name: 'Weltraum',
     dbValue: 'space',
   ),
 
   /// Sports
   sports(
-    name: 'Sport',
     dbValue: 'sports',
   ),
 
   /// Technology
   technology(
-    name: 'Technologie',
     dbValue: 'technology',
   ),
 
   /// TV Shows
   tvShows(
-    name: 'TV-Shows',
     dbValue: 'tv_shows',
   ),
 
   /// Video Games
   videoGames(
-    name: 'Videospiele',
     dbValue: 'video_games',
   );
-
-  /// Name
-  final String name;
 
   /// Database value
   final String dbValue;
 
   /// Default constructor
   const GameCategory({
-    required this.name,
     required this.dbValue,
   });
+
+  /// Gets the name of the category
+  String name(BuildContext context) {
+    final CustomLanguageData language = CustomLocalization.of(context).language;
+    return switch (this) {
+      GameCategory.animals => language.gameCategoryAnimals,
+      GameCategory.architecture => language.gameCategoryArchitecture,
+      GameCategory.art => language.gameCategoryArt,
+      GameCategory.boardGames => language.gameCategoryBoardGames,
+      GameCategory.capitals => language.gameCategoryCapitals,
+      GameCategory.chemistry => language.gameCategoryChemistry,
+      GameCategory.coding => language.gameCategoryComics,
+      GameCategory.comics => language.gameCategoryComics,
+      GameCategory.culture => language.gameCategoryCulture,
+      GameCategory.economics => language.gameCategoryEconomics,
+      GameCategory.famousPeople => language.gameCategoryFamousPeople,
+      GameCategory.foodAndDrinks => language.gameCategoryFoodAndDrinks,
+      GameCategory.football => language.gameCategoryFootball,
+      GameCategory.geography => language.gameCategoryGeography,
+      GameCategory.history => language.gameCategoryHistory,
+      GameCategory.languages => language.gameCategoryLanguages,
+      GameCategory.leagueOfLegends => language.gameCategoryLeagueOfLegends,
+      GameCategory.literature => language.gameCategoryLiterature,
+      GameCategory.math => language.gameCategoryMath,
+      GameCategory.movies => language.gameCategoryMovies,
+      GameCategory.music => language.gameCategoryMusic,
+      GameCategory.mythology => language.gameCategoryMythology,
+      GameCategory.nature => language.gameCategoryNature,
+      GameCategory.physics => language.gameCategoryPhysics,
+      GameCategory.politics => language.gameCategoryPolitics,
+      GameCategory.science => language.gameCategoryScience,
+      GameCategory.soccer => language.gameCategorySoccer,
+      GameCategory.space => language.gameCategorySpace,
+      GameCategory.sports => language.gameCategorySports,
+      GameCategory.technology => language.gameCategoryTechnology,
+      GameCategory.tvShows => language.gameCategoryTvShows,
+      GameCategory.videoGames => language.gameCategoryVideoGames
+    };
+  }
 
   /// Converts database value to an enum value
   static GameCategory fromDbValue(String dbValue) {

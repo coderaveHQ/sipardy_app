@@ -52,7 +52,7 @@ class CreateGamePageStateNotifier extends _$CreateGamePageStateNotifier {
   /// Triggers a category by either selecting or deselecting it based on wether it is already selected
   void triggerCategory(GameCategory category) {
     if (!state.categories[category]! && state.selectedCategoriesCount == 5) {
-      state = state.copyWith(error: const GameCreationError.alreadyFiveCategoriesPicked());
+      state = state.copyWith(error: GameCreationError.alreadyFiveCategoriesPicked());
       return;
     }
 
@@ -72,8 +72,8 @@ class CreateGamePageStateNotifier extends _$CreateGamePageStateNotifier {
     );
 
     try {
-      if (state.playerNames.isEmpty) throw const GameCreationError.noPlayersAdded();
-      if (state.selectedCategoriesCount < 5) throw const GameCreationError.lessThanFiveCategoriesPicked();
+      if (state.playerNames.isEmpty) throw GameCreationError.noPlayersAdded();
+      if (state.selectedCategoriesCount < 5) throw GameCreationError.lessThanFiveCategoriesPicked();
       final String roomId = await Supabase.instance.client.rpc('app_create_game_room', params: <String, dynamic>{
         'selected_categories': state.categories.entries.where((MapEntry<GameCategory, bool> entry) => entry.value).map((MapEntry<GameCategory, bool> entry) => entry.key.dbValue).toList(),
         'player_names': state.playerNames

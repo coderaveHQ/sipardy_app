@@ -33,7 +33,7 @@ class CreateGameCategoriesList extends StatelessWidget {
       children: categories.entries.map((MapEntry<GameCategory, bool> entry) {
         return SPChip.clickable(
           onPressed: () => onPressed?.call(entry.key),
-          title: entry.key.name,
+          title: entry.key.name(context),
           isEnabled: isEnabled,
           backgroundColor: entry.value ? SPColors.blue500 : SPColors.tertiaryBackground,
           foregroundColor: SPColors.white,

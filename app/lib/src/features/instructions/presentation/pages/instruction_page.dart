@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:sipardy_app/core/res/localization/custom_localization.dart';
+import 'package:sipardy_app/core/res/localization/language/custom_language_data.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text_button.dart';
 import 'package:sipardy_app/core/error/launch_error.dart';
 import 'package:sipardy_app/core/common/widgets/sp_app_bar.dart';
@@ -26,22 +28,25 @@ class InstructionPage extends StatelessWidget {
   Future<void> _openPrivacyPolicy(BuildContext context) async {
     final Uri url = Uri.parse(_privacyPolicyUrl);
     final bool opened = await launchUrl(url);
-    if (!opened && context.mounted) const LaunchError.urlNotOpened().showToast(context);
+    if (!opened && context.mounted) LaunchError.urlNotOpened().showToast(context);
   }
 
   /// Opens the support page in the default browser
   Future<void> _openSupport(BuildContext context) async {
     final Uri url = Uri.parse(_supportUrl);
     final bool opened = await launchUrl(url);
-    if (!opened && context.mounted) const LaunchError.urlNotOpened().showToast(context);
+    if (!opened && context.mounted) LaunchError.urlNotOpened().showToast(context);
   }
 
   @override
   Widget build(BuildContext context) {
+
+    final CustomLanguageData language = CustomLocalization.of(context).language;
+
     return SPScaffold(
-      appBar: const SPAppBar(
-        title: 'Spielanleitung',
-        backButton: SPAppBarBackButton()
+      appBar: SPAppBar(
+        title: language.instructionsAppBarTitle,
+        backButton: const SPAppBarBackButton()
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
@@ -53,31 +58,31 @@ class InstructionPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SPText(
-              text: 'Hier ist alles was du wissen musst:',
-              style: TextStyle(
+            SPText(
+              text: language.instructionsOverview,
+              style: const TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w600,
                 color: SPColors.white
               )
             ),
             const Gap(SPSpacing.xl),
-            const Row(
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SPText(
-                  text: '1. SCHRITT:',
-                  style: TextStyle(
+                  text: language.instructionsStep1Title,
+                  style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.w600,
                     color: SPColors.white
                   )
                 ),
-                Gap(SPSpacing.md),
+                const Gap(SPSpacing.md),
                 Expanded(
                   child: SPText(
-                    text: 'Wähle eine Karte einer Kategorie. Die Zahl auf der Karte entspricht dem Schwierigkeitsgrad und den damit verbundenen zu gewinnenden Punkten.',
-                    style: TextStyle(
+                    text: language.instructionsStep1Description,
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w400,
                       color: SPColors.white
@@ -87,22 +92,22 @@ class InstructionPage extends StatelessWidget {
               ]
             ),
             const Gap(SPSpacing.lg),
-            const Row(
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SPText(
-                  text: '2. SCHRITT:',
-                  style: TextStyle(
+                  text: language.instructionsStep2Title,
+                  style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.w600,
                     color: SPColors.white
                   )
                 ),
-                Gap(SPSpacing.md),
+                const Gap(SPSpacing.md),
                 Expanded(
                   child: SPText(
-                    text: 'Beantworte die Frage.',
-                    style: TextStyle(
+                    text: language.instructionsStep2Description,
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w400,
                       color: SPColors.white
@@ -112,22 +117,22 @@ class InstructionPage extends StatelessWidget {
               ]
             ),
             const Gap(SPSpacing.lg),
-            const Row(
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SPText(
-                  text: '3. SCHRITT:',
-                  style: TextStyle(
+                  text: language.instructionsStep3Title,
+                  style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.w600,
                     color: SPColors.white
                   )
                 ),
-                Gap(SPSpacing.md),
+                const Gap(SPSpacing.md),
                 Expanded(
                   child: SPText(
-                    text: 'Sieh nach, ob du sie korrekt beantwortet hast.',
-                    style: TextStyle(
+                    text: language.instructionsStep3Description,
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w400,
                       color: SPColors.white
@@ -137,22 +142,22 @@ class InstructionPage extends StatelessWidget {
               ]
             ),
             const Gap(SPSpacing.lg),
-            const Row(
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SPText(
-                  text: '[OPTIONAL]:',
-                  style: TextStyle(
+                  text: language.instructionsOptionalTitle,
+                  style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.w600,
                     color: SPColors.white
                   )
                 ),
-                Gap(SPSpacing.md),
+                const Gap(SPSpacing.md),
                 Expanded(
                   child: SPText(
-                    text: 'Verteile die Anzahl an gewonnen Punkten als Schlücke oder trinke sie selbst wenn du die Frage falsch beantwortet hast.',
-                    style: TextStyle(
+                    text: language.instructionsOptionalDescription,
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w400,
                       color: SPColors.white
@@ -162,9 +167,9 @@ class InstructionPage extends StatelessWidget {
               ]
             ),
             const Gap(SPSpacing.xxl),
-            const SPText(
-              text: 'Datenschutzrichtlinie:',
-              style: TextStyle(
+            SPText(
+              text: language.instructionsPrivacyPolicy,
+              style: const TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w600,
                 color: SPColors.white
@@ -176,9 +181,9 @@ class InstructionPage extends StatelessWidget {
               text: _privacyPolicyUrl
             ),
             const Gap(SPSpacing.xxl),
-            const SPText(
-              text: 'Support:',
-              style: TextStyle(
+            SPText(
+              text: language.instructionsSupport,
+              style: const TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w600,
                 color: SPColors.white

@@ -6,6 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sipardy_app/core/common/widgets/sp_button.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/extensions/build_context_x.dart';
+import 'package:sipardy_app/core/res/localization/custom_localization.dart';
+import 'package:sipardy_app/core/res/localization/custom_localization_data.dart';
+import 'package:sipardy_app/core/res/localization/language/custom_language_data.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/utils/constants/ui_constants.dart';
@@ -39,6 +42,9 @@ class GameRoomAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final CustomLocalizationData localization = CustomLocalization.of(context);
+    
     return Container(
       width: UIConstants.maxWidthBreakpoint,
       alignment: Alignment.center,
@@ -55,11 +61,17 @@ class GameRoomAction extends StatelessWidget {
       child: switch (action) {
         GameAction.choose => const GameRoomActionChoose(),
         GameAction.showQuestion => GameRoomActionShowQuestion(
-          question: question!.details.question, 
+          question: localization.chooseLanguage(
+            en: question!.details.questionEn,
+            de: question!.details.questionDe
+          ),
           onShowAnswer: onShowAnswer
         ),
         GameAction.showAnswer => GameRoomActionShowAnswer(
-          answer: question!.details.answer,
+          answer: localization.chooseLanguage(
+            en: question!.details.answerEn,
+            de: question!.details.answerDe
+          ),
           onAnswer: onAnswer
         )
       }
@@ -75,10 +87,13 @@ class GameRoomActionChoose extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SPText(
-      text: 'Bitte wähle eine Option.',
+
+    final CustomLanguageData language = CustomLocalization.of(context).language;
+    
+    return SPText(
+      text: language.gameRoomActionChooseOption,
       alignment: TextAlign.center,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 18.0,
         fontWeight: FontWeight.w600,
         color: SPColors.white
@@ -106,6 +121,8 @@ class GameRoomActionShowQuestion extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
+    final CustomLanguageData language = CustomLocalization.of(context).language;
+
     final bool isSyncing = ref.watch(gameRoomIsSyncingNotifierProvider);
 
     return Column(
@@ -113,9 +130,9 @@ class GameRoomActionShowQuestion extends ConsumerWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SPText(
-              text: 'FRAGE:',
-              style: TextStyle(
+            SPText(
+              text: language.gameRoomActionQuestion,
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
                 color: SPColors.white
@@ -137,7 +154,7 @@ class GameRoomActionShowQuestion extends ConsumerWidget {
         const Gap(SPSpacing.lg),
         SPButton(
           onPressed: onShowAnswer,
-          title: 'Antwort anzeigen',
+          title: language.gameRoomActionShowAnswer,
           isEnabled: !isSyncing
         )
       ]
@@ -164,6 +181,8 @@ class GameRoomActionShowAnswer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
+    final CustomLanguageData language = CustomLocalization.of(context).language;
+
     final bool isSyncing = ref.watch(gameRoomIsSyncingNotifierProvider);
 
     return Column(
@@ -172,9 +191,9 @@ class GameRoomActionShowAnswer extends ConsumerWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SPText(
-              text: 'ANTWORT:',
-              style: TextStyle(
+            SPText(
+              text: language.gameRoomActionAnswer,
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
                 color: SPColors.white
@@ -194,9 +213,9 @@ class GameRoomActionShowAnswer extends ConsumerWidget {
           ]
         ),
         const Gap(SPSpacing.lg),
-        const SPText(
-          text: 'Wurde die Frage korrekt beantwortet?',
-          style: TextStyle(
+        SPText(
+          text: language.gameRoomActionIsCorrect,
+          style: const TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.w600,
             color: SPColors.white,
@@ -211,7 +230,7 @@ class GameRoomActionShowAnswer extends ConsumerWidget {
                 onPressed: () => onAnswer.call(true),
                 backgroundColor: SPColors.green500,
                 foregroundColor: SPColors.white,
-                title: 'Richtig',
+                title: language.gameRoomActionRight,
                 isEnabled: !isSyncing
               )
             ),
@@ -221,7 +240,7 @@ class GameRoomActionShowAnswer extends ConsumerWidget {
                 onPressed: () => onAnswer.call(false),
                 backgroundColor: SPColors.red500,
                 foregroundColor: SPColors.white,
-                title: 'Falsch',
+                title: language.gameRoomActionWrong,
                 isEnabled: !isSyncing
               )
             )

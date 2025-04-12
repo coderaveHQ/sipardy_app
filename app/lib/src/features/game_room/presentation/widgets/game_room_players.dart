@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sipardy_app/core/common/widgets/sp_chip.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/extensions/build_context_x.dart';
+import 'package:sipardy_app/core/res/localization/custom_localization.dart';
+import 'package:sipardy_app/core/res/localization/language/custom_language_data.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/utils/player_utils.dart';
@@ -52,6 +54,9 @@ class GameRoomPlayers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final CustomLanguageData language = CustomLocalization.of(context).language;
+
     return Container(
       width: double.infinity,
       color: SPColors.primaryBackground,
@@ -61,11 +66,11 @@ class GameRoomPlayers extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(left: context.leftPadding + SPSpacing.lg),
-            child: const SPText(
-              text: 'PUNKTE',
+            child: SPText(
+              text: language.gameRoomPlayersPoints,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
                 color: SPColors.white

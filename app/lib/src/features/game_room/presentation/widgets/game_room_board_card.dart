@@ -6,8 +6,6 @@ import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/utils/enums/game_category.dart';
 import 'package:sipardy_app/src/models/game_room_question.dart';
 
-// TODO: Refactor
-
 /// Type of the game room board card
 enum GameRoomBoardCardType {
   /// Category
@@ -58,7 +56,7 @@ class GameRoomBoardCard extends StatelessWidget {
         category = null;
 
   /// Gets the title of the card
-  String get _title => category?.name ?? question!.details.points.toString();
+  String getTitle(BuildContext context) => category?.name(context) ?? question!.details.points.toString();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +72,7 @@ class GameRoomBoardCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
         child: Center(
           child: SPText(
-            text: _title,
+            text: getTitle(context),
             alignment: TextAlign.center,
             style: TextStyle(
               fontSize: type == GameRoomBoardCardType.question ? 16.0 : 11.0,

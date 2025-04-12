@@ -35,9 +35,9 @@ class GameRoomBoard extends ConsumerWidget {
   });
 
   /// List of distinct categories in the passed list of questions ordered by their name
-  List<GameCategory> _getCategories(List<GameRoomQuestion> questions) {
+  List<GameCategory> _getCategories(BuildContext context, List<GameRoomQuestion> questions) {
     final List<GameCategory> categoriesList = questions.map((GameRoomQuestion question) => question.details.category).toSet().toList();
-    categoriesList.sort((GameCategory a, GameCategory b) => a.name.compareTo(b.name));
+    categoriesList.sort((GameCategory a, GameCategory b) => a.name(context).compareTo(b.name(context)));
     return categoriesList;
   }
 
@@ -64,7 +64,7 @@ class GameRoomBoard extends ConsumerWidget {
           return Expanded(
             child: Column(
               children: List.generate(13, (int rowIndex) {
-                final GameCategory category = _getCategories(questions)[((columnIndex - 1) / 2).toInt()];
+                final GameCategory category = _getCategories(context, questions)[((columnIndex - 1) / 2).toInt()];
                 if (<int>[0, 2, 12].contains(rowIndex)) const Gap(SPSpacing.lg);
                 if (rowIndex == 1) return GameRoomBoardCard.category(category: category);
                 if (rowIndex % 2 == 0) return const Gap(SPSpacing.md);

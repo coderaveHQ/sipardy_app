@@ -9,6 +9,8 @@ import 'package:sipardy_app/core/common/widgets/sp_pin_put.dart';
 import 'package:sipardy_app/core/common/widgets/sp_scaffold.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/extensions/build_context_x.dart';
+import 'package:sipardy_app/core/res/localization/custom_localization.dart';
+import 'package:sipardy_app/core/res/localization/language/custom_language_data.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/services/router.dart';
@@ -44,10 +46,12 @@ class _JoinGamePageState extends State<JoinGamePage> {
 
     _pinController = useTextEditingController();
 
+    final CustomLanguageData language = CustomLocalization.of(context).language;
+
     return SPScaffold(
-      appBar: const SPAppBar(
-        title: 'Raum beitreten',
-        backButton: SPAppBarBackButton()
+      appBar: SPAppBar(
+        title: language.joinGameAppBarTitle,
+        backButton: const SPAppBarBackButton()
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
@@ -58,10 +62,10 @@ class _JoinGamePageState extends State<JoinGamePage> {
         ),
         child: Column(
           children: [
-            const SPText(
-              text: 'Gib den Raum-Code ein, um der Runde beizutreten.',
+            SPText(
+              text: language.joinGameInstructions,
               alignment: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
                 color: SPColors.white
@@ -75,7 +79,7 @@ class _JoinGamePageState extends State<JoinGamePage> {
             const Gap(SPSpacing.lg),
             SPButton(
               onPressed: _onJoinGame,
-              title: 'Beitreten'
+              title: language.joinGameJoinGameButtonTitle
             )
           ]
         )

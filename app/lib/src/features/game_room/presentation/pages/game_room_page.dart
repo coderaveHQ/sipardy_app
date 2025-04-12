@@ -10,6 +10,8 @@ import 'package:sipardy_app/core/common/widgets/sp_max_size.dart';
 import 'package:sipardy_app/core/common/widgets/sp_scaffold.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/extensions/object_x.dart';
+import 'package:sipardy_app/core/res/localization/custom_localization.dart';
+import 'package:sipardy_app/core/res/localization/language/custom_language_data.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/utils/constants/ui_constants.dart';
 import 'package:sipardy_app/src/features/game_room/presentation/app/game_room_is_syncing_notifier.dart';
@@ -84,11 +86,13 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
     final AsyncValue<GameRoom> pageState = ref.watch(_pageStateNotifierProvider);
     final bool isSyncing = ref.watch(gameRoomIsSyncingNotifierProvider);
 
+    final CustomLanguageData language = CustomLocalization.of(context).language;
+
     ref.listen(_pageStateNotifierProvider, _handleGameRoomPageStateUpdate);
 
     return SPScaffold(
       appBar: SPAppBar(
-        title: 'Raum: ${ widget.roomId }',
+        title: '${ language.gameRoomAppBarTitlePrefix } ${ widget.roomId }',
         backButton: const SPAppBarBackButton(),
         extra: isSyncing
           ? const SPCircularProgressIndicator(
@@ -122,7 +126,7 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
           child: SPMaxSize.width(
             width: UIConstants.maxWidthBreakpoint, 
             child: SPText(
-              text: e.errorMessage,
+              text: e.getErrorMessage(context),
               alignment: TextAlign.center,
               style: const TextStyle(
                 fontSize: 14.0,

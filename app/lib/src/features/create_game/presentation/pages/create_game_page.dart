@@ -13,6 +13,8 @@ import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text_field.dart';
 import 'package:sipardy_app/core/extensions/build_context_x.dart';
 import 'package:sipardy_app/core/extensions/object_x.dart';
+import 'package:sipardy_app/core/res/localization/custom_localization.dart';
+import 'package:sipardy_app/core/res/localization/language/custom_language_data.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/services/router.dart';
@@ -43,7 +45,8 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
     final String? gameRoomId = await ref.read(createGamePageStateNotifierProvider.notifier).createGameRoom();
     if (gameRoomId != null && mounted) {
       GameRoomRoute(gameRoomId).pushReplacement(context);
-      Toaster.showSuccess(context, 'Raum erstellt! Du kannst nun den Raum-Code teilen.');
+      final CustomLanguageData language = CustomLocalization.of(context).language;
+      Toaster.showSuccess(context, language.successRoomCreated);
     }
   }
 
@@ -87,13 +90,15 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
     _playerNamesController = useTextEditingController();
     _playerNameFocusNode = useFocusNode();
 
+    final CustomLanguageData language = CustomLocalization.of(context).language;
+
     final CreateGamePageState pageState = ref.watch(createGamePageStateNotifierProvider);
 
     ref.listen(createGamePageStateNotifierProvider, _handleCreateGamePageStateUpdate);
 
     return SPScaffold(
       appBar: SPAppBar(
-        title: 'Raum erstellen',
+        title: language.createGameCreateRoom,
         backButton: SPAppBarBackButton(isEnabled: !pageState.isCreatingGame)
       ),
       body: SingleChildScrollView(
@@ -106,9 +111,9 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SPText(
-              text: '1. Füge Spieler*innen hinzu',
-              style: TextStyle(
+            SPText(
+              text: language.createGameAddPlayers,
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
                 color: SPColors.white
@@ -121,7 +126,7 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
                   child: SPTextField(
                     controller: _playerNamesController,
                     icon: LucideIcons.tag,
-                    hint: 'Spieler*inname',
+                    hint: language.createGamePlayerName,
                     isEnabled: !pageState.isCreatingGame,
                     autofocus: true,
                     focusNode: _playerNameFocusNode
@@ -154,9 +159,9 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
               isEnabled: !pageState.isCreatingGame
             ),
             const Gap(SPSpacing.xl),
-            const SPText(
-              text: '2. Wähle 5 Kategorien',
-              style: TextStyle(
+            SPText(
+              text: language.createGameChooseCategories,
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
                 color: SPColors.white
@@ -169,9 +174,9 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
               isEnabled: !pageState.isCreatingGame
             ),
             const Gap(SPSpacing.xl),
-            const SPText(
-              text: '3. Starte das Spiel',
-              style: TextStyle(
+            SPText(
+              text: language.createGameStartGame,
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
                 color: SPColors.white
@@ -180,7 +185,7 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
             const Gap(SPSpacing.xl),
             SPButton(
               onPressed: _onCreateGame,
-              title: 'Erstellen',
+              title: language.createGameCreateGame,
               isEnabled: !pageState.isCreatingGame,
               isLoading: pageState.isCreatingGame
             )

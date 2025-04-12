@@ -10,6 +10,8 @@ import 'package:go_router/go_router.dart';
 import 'package:sipardy_app/core/common/widgets/sp_button.dart';
 import 'package:sipardy_app/core/common/widgets/sp_max_size.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
+import 'package:sipardy_app/core/res/localization/custom_localization.dart';
+import 'package:sipardy_app/core/res/localization/language/custom_language_data.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/utils/constants/ui_constants.dart';
@@ -74,6 +76,9 @@ class GameRoomEndCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final CustomLanguageData language = CustomLocalization.of(context).language;
+    
     return Dialog(
       backgroundColor: SPColors.primaryBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
@@ -84,10 +89,10 @@ class GameRoomEndCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SPText(
-                text: 'SCHÖNES SPIEL!',
+              SPText(
+                text: language.gameRoomEndCardTitle,
                 alignment: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 22.0,
                   fontWeight: FontWeight.w900,
                   color: SPColors.white
@@ -96,7 +101,7 @@ class GameRoomEndCard extends StatelessWidget {
               const Gap(SPSpacing.lg),
               SPButton(
                 onPressed: () => _onPressed(context),
-                title: 'Spiel beenden'
+                title: language.gameRoomEndCardQuitGameButtonTitle
               )
             ]
           )

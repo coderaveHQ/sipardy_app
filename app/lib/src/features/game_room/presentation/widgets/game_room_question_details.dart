@@ -9,6 +9,9 @@ import 'package:sipardy_app/core/common/widgets/sp_button.dart';
 import 'package:sipardy_app/core/common/widgets/sp_chip.dart';
 import 'package:sipardy_app/core/common/widgets/sp_max_size.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
+import 'package:sipardy_app/core/res/localization/custom_localization.dart';
+import 'package:sipardy_app/core/res/localization/custom_localization_data.dart';
+import 'package:sipardy_app/core/res/localization/language/custom_language_data.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/utils/constants/ui_constants.dart';
@@ -51,6 +54,10 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final CustomLocalizationData localization = CustomLocalization.of(context);
+    final CustomLanguageData language = localization.language;
+
     return Dialog(
       backgroundColor: SPColors.primaryBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
@@ -61,10 +68,10 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SPText(
-                text: 'Details',
+              SPText(
+                text: language.gameRoomQuestionDetailsTitle,
                 alignment: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 22.0,
                   fontWeight: FontWeight.w900,
                   color: SPColors.white
@@ -74,9 +81,9 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SPText(
-                    text: 'FRAGE:',
-                    style: TextStyle(
+                  SPText(
+                    text: language.gameRoomQuestionDetailsQuestion,
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
                       color: SPColors.white
@@ -85,7 +92,10 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
                   const Gap(SPSpacing.md),
                   Expanded(
                     child: SPText(
-                      text: question.details.question,
+                      text: localization.chooseLanguage(
+                        en: question.details.questionEn, 
+                        de: question.details.questionDe
+                      ),
                       style: const TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.w400,
@@ -99,9 +109,9 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SPText(
-                    text: 'ANTWORT:',
-                    style: TextStyle(
+                  SPText(
+                    text: language.gameRoomQuestionDetailsAnswer,
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
                       color: SPColors.white
@@ -110,7 +120,10 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
                   const Gap(SPSpacing.md),
                   Expanded(
                     child: SPText(
-                      text: question.details.answer,
+                      text: localization.chooseLanguage(
+                        en: question.details.answerEn, 
+                        de: question.details.answerDe
+                      ),
                       style: const TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.w400,
@@ -123,9 +136,9 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
               const Gap(SPSpacing.md),
               Row(
                 children: [
-                  const SPText(
-                    text: 'BEANTWORTET:',
-                    style: TextStyle(
+                  SPText(
+                    text: language.gameRoomQuestionDetailsAnswered,
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
                       color: SPColors.white
@@ -144,9 +157,9 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
               const Gap(SPSpacing.md),
               Row(
                 children: [
-                  const SPText(
-                    text: 'KORREKT:',
-                    style: TextStyle(
+                  SPText(
+                    text: language.gameRoomQuestionDetailsCorrect,
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
                       color: SPColors.white
@@ -155,7 +168,7 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
                   const Gap(SPSpacing.md),
                   Flexible(
                     child: SPChip.basic(
-                      title: question.answer! ? 'Richtig' : 'Falsch',
+                      title: question.answer! ? language.gameRoomQuestionDetailsRight : language.gameRoomQuestionDetailsWrong,
                       backgroundColor: question.answer! ? SPColors.green500 : SPColors.red500,
                       foregroundColor: SPColors.white
                     )
@@ -165,7 +178,7 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
               const Gap(SPSpacing.lg),
               SPButton(
                 onPressed: () => _onPressed(context),
-                title: 'OKAY'
+                title: language.gameRoomQuestionDetailsCloseButtonTitle
               )
             ]
           )
