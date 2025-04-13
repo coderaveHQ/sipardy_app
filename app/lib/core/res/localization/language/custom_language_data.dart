@@ -85,6 +85,11 @@ class CustomLanguageData {
   final String gameRoomActionRight;
   final String gameRoomActionWrong;
 
+  final String menuAppBarTitle;
+  final String menuInstructions;
+  final String menuCreateGameButtonTitle;
+  final String menuJoinGameButtonTitle;
+
   /// Default constructor
   const CustomLanguageData({
     required this.gameCategoryAnimals,
@@ -167,7 +172,12 @@ class CustomLanguageData {
     required this.gameRoomActionAnswer,
     required this.gameRoomActionIsCorrect,
     required this.gameRoomActionRight,
-    required this.gameRoomActionWrong
+    required this.gameRoomActionWrong,
+
+    required this.menuAppBarTitle,
+    required this.menuInstructions,
+    required this.menuCreateGameButtonTitle,
+    required this.menuJoinGameButtonTitle
   });
 
   /// The english values
@@ -252,7 +262,12 @@ class CustomLanguageData {
       gameRoomActionAnswer = 'ANSWER:',
       gameRoomActionIsCorrect = 'Was the question answered correctly?',
       gameRoomActionRight = 'Right',
-      gameRoomActionWrong = 'Wrong';
+      gameRoomActionWrong = 'Wrong',
+      
+      menuAppBarTitle = 'Game Menu',
+      menuInstructions = 'Choose whether you want to create a new game or join an existing one.',
+      menuCreateGameButtonTitle = 'Create',
+      menuJoinGameButtonTitle = 'Join';
 
   /// The german values
   const CustomLanguageData.de()
@@ -336,5 +351,10 @@ class CustomLanguageData {
       gameRoomActionAnswer = 'ANTWORT:',
       gameRoomActionIsCorrect = 'Wurde die Frage korrekt beantwortet?',
       gameRoomActionRight = 'Richtig',
-      gameRoomActionWrong = 'Falsch';
+      gameRoomActionWrong = 'Falsch',
+
+      menuAppBarTitle = 'Spielmenü',
+      menuInstructions = 'Wähle aus, ob du ein neues Spiel erstellen- oder einem bestehenden beitreten willst.',
+      menuCreateGameButtonTitle = 'Erstellen',
+      menuJoinGameButtonTitle = 'Beitreten';
 }

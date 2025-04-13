@@ -9,6 +9,8 @@ import 'package:sipardy_app/core/common/widgets/sp_max_size.dart';
 import 'package:sipardy_app/core/common/widgets/sp_scaffold.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
 import 'package:sipardy_app/core/extensions/build_context_x.dart';
+import 'package:sipardy_app/core/res/localization/custom_localization.dart';
+import 'package:sipardy_app/core/res/localization/language/custom_language_data.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
 import 'package:sipardy_app/core/services/router.dart';
@@ -43,9 +45,12 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final CustomLanguageData language = CustomLocalization.of(context).language;
+    
     return SPScaffold(
       appBar: SPAppBar(
-        title: 'Spielmenü',
+        title: language.menuAppBarTitle,
         actionButtons: [
           SPAppBarButton(
             onPressed: _onInstructions,
@@ -84,10 +89,10 @@ class _MenuPageState extends State<MenuPage> {
                 )
               ),
               const Gap(SPSpacing.xxl),
-              const SPText(
-                text: 'Wähle aus, ob du ein neues Spiel erstellen- oder einem bestehenden beitreten willst.',
+              SPText(
+                text: language.menuInstructions,
                 alignment: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w400,
                   color: SPColors.white
@@ -96,12 +101,12 @@ class _MenuPageState extends State<MenuPage> {
               const Gap(SPSpacing.lg),
               SPButton(
                 onPressed: _onCreateGame,
-                title: 'Erstellen'
+                title: language.menuCreateGameButtonTitle
               ),
               const Gap(SPSpacing.lg),
               SPButton(
                 onPressed: _onJoinGame,
-                title: 'Beitreten'
+                title: language.menuJoinGameButtonTitle
               )
             ]
           )
