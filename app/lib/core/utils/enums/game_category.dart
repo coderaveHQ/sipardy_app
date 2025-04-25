@@ -186,7 +186,7 @@ enum GameCategory {
       GameCategory.boardGames => language.gameCategoryBoardGames,
       GameCategory.capitals => language.gameCategoryCapitals,
       GameCategory.chemistry => language.gameCategoryChemistry,
-      GameCategory.coding => language.gameCategoryComics,
+      GameCategory.coding => language.gameCategoryCoding,
       GameCategory.comics => language.gameCategoryComics,
       GameCategory.culture => language.gameCategoryCulture,
       GameCategory.economics => language.gameCategoryEconomics,
