@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import 'package:sipardy_app/core/common/widgets/sp_button.dart';
 import 'package:sipardy_app/core/common/widgets/sp_chip.dart';
@@ -22,13 +23,15 @@ import 'package:sipardy_app/src/models/game_room_question.dart';
 /// Shows a dialog with details about the question
 Future<void> showGameRoomQuestionDetailsCard(BuildContext context, {
   required GameRoomQuestion question,
-  required GameRoomPlayer player
+  required GameRoomPlayer player,
+  required void Function(bool) onSetRecommendation
 }) async {
   await showDialog(
     context: context, 
     builder: (BuildContext context) => GameRoomQuestionDetailsCard(
       question: question,
-      player: player
+      player: player,
+      onSetRecommendation: onSetRecommendation
     )
   );
 }
@@ -42,11 +45,15 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
   /// The player that answered this question
   final GameRoomPlayer player;
 
+  /// Sets the recommendation for the selected question
+  final void Function(bool) onSetRecommendation;
+
   /// Default constructor
   const GameRoomQuestionDetailsCard({ 
     super.key,
     required this.question,
-    required this.player
+    required this.player,
+    required this.onSetRecommendation
   });
 
   /// Handles when the button was pressed
@@ -94,7 +101,8 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
                     child: SPText(
                       text: localization.chooseLanguage(
                         en: question.details.questionEn, 
-                        de: question.details.questionDe
+                        de: question.details.questionDe,
+                        it: question.details.questionIt
                       ),
                       style: const TextStyle(
                         fontSize: 14.0,
@@ -122,7 +130,8 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
                     child: SPText(
                       text: localization.chooseLanguage(
                         en: question.details.answerEn, 
-                        de: question.details.answerDe
+                        de: question.details.answerDe,
+                        it: question.details.answerIt
                       ),
                       style: const TextStyle(
                         fontSize: 14.0,
@@ -175,6 +184,28 @@ class GameRoomQuestionDetailsCard extends StatelessWidget {
                   )
                 ]
               ),
+              const Gap(SPSpacing.md),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => onSetRecommendation.call(true),
+                    child: Icon(
+                      LucideIcons.thumbsUp,
+                      color: question.recommendation == true ? SPColors.green500 : SPColors.gray100,
+                      size: 20.0
+                    )
+                  ),
+                  const Gap(SPSpacing.lg),
+                  GestureDetector(
+                    onTap: () => onSetRecommendation.call(false),
+                    child: Icon(
+                      LucideIcons.thumbsDown,
+                      color: question.recommendation == false ? SPColors.red500 : SPColors.gray100,
+                      size: 20.0
+                    )
+                  )
+                ]
+              ),  
               const Gap(SPSpacing.lg),
               SPButton(
                 onPressed: () => _onPressed(context),

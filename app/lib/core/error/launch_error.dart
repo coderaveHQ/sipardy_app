@@ -8,6 +8,7 @@ class LaunchError extends IError {
   LaunchError.urlNotOpened()
     : super((CustomLanguageMode mode) => mode.chooseLanguage(
       en: 'URL could not be opened.', 
-      de: 'URL konnte nicht geöffnet werden.'
+      de: 'URL konnte nicht geöffnet werden.',
+      it: 'Impossibile aprire l\'URL.'
     ));
 }

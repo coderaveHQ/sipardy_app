@@ -8,20 +8,23 @@ class GameCreationError extends IError {
   GameCreationError.noPlayersAdded()
     : super((CustomLanguageMode mode) => mode.chooseLanguage(
       en: 'No players added.', 
-      de: 'Keine Spieler*innen hinzugefügt.'
+      de: 'Keine Spieler*innen hinzugefügt.',
+      it: 'Nessun giocatore aggiunto.'
     ));
 
   /// An error for when five categories are already picked
   GameCreationError.alreadyFiveCategoriesPicked()
     : super((CustomLanguageMode mode) => mode.chooseLanguage(
       en: 'Maximum of 5 categories possible.', 
-      de: 'Maximal 5 Kategorien möglich.'
+      de: 'Maximal 5 Kategorien möglich.',
+      it: 'Sono possibili al massimo 5 categorie.'
     ));
 
   /// An error for when less than five categories have been picked
   GameCreationError.lessThanFiveCategoriesPicked()
     : super((CustomLanguageMode mode) => mode.chooseLanguage(
       en: 'Please select 5 categories.', 
-      de: 'Bitte 5 Kategorien wählen.'
+      de: 'Bitte 5 Kategorien wählen.',
+      it: 'Seleziona 5 categorie.'
     ));
 }

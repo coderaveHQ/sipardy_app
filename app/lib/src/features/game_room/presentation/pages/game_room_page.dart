@@ -53,10 +53,10 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
   }
 
   /// Shows question details in a dialog
-  Future<void> showQuestionDetails(GameRoom room, String questionId) async {
+  Future<void> showQuestionDetails(GameRoom room, String questionId, void Function(String, bool) onSetRecommendation) async {
     final GameRoomQuestion tempQuestion = room.questions.firstWhere((GameRoomQuestion questions) => questions.questionId == questionId);
     final GameRoomPlayer tempPlayer = room.players.firstWhere((GameRoomPlayer player) => player.position == tempQuestion.playerPosition);
-    await showGameRoomQuestionDetailsCard(context, question: tempQuestion, player: tempPlayer);
+    await showGameRoomQuestionDetailsCard(context, question: tempQuestion, player: tempPlayer, onSetRecommendation: (bool recommendation) => onSetRecommendation.call(questionId, recommendation));
   }
 
   /// Action on showing the answer
@@ -78,6 +78,13 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
   void _handleGameRoomPageStateUpdate(AsyncValue<GameRoom>? last, AsyncValue<GameRoom> next) {
     if (next.hasError) next.error!.showErrorToast(context);
     if (next.value?.isGameFinished ?? false) _handleGameFinished();
+  }
+
+  Future<void> onSetRecommendation(String questionId, bool recommendation) async {
+    await ref.read(_pageStateNotifierProvider.notifier).setRecommendation(
+      questionId: questionId,
+      recommendation: recommendation
+    );
   }
 
   @override
@@ -110,7 +117,7 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
               child: GameRoomBoard(
                 questions: room.questions,
                 onChooseQuestion: (String questionId) => chooseQuestion(questionId, room.playerTurn.position),
-                onQuestionDetails: (String questionId) => showQuestionDetails(room, questionId),
+                onQuestionDetails: (String questionId) => showQuestionDetails(room, questionId, onSetRecommendation),
                 isAnyQuestionSelected: room.isAnyQuestionSelected
               )
             ),
@@ -118,7 +125,8 @@ class _GameRoomPageState extends ConsumerState<GameRoomPage> {
               action: room.currentAction,
               question: room.selectedQuestion,
               onShowAnswer: showAnswer,
-              onAnswer: answer
+              onAnswer: answer,
+              onSetRecommendation: (bool recommendation) => onSetRecommendation(room.selectedQuestion!.questionId, recommendation)
             )
           ]
         ),

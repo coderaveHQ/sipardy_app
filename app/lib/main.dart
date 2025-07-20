@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,9 +21,6 @@ Future<void> main() async {
 
   // Show the splash screen
   if (kIsWeb || Platform.isAndroid || Platform.isIOS) FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
-  // Load the environment variables
-  await loadEnv();
 
   // Initialize the Supabase client
   await initializeSupabase();
@@ -46,11 +42,6 @@ Future<void> main() async {
 
   // Remove the splash screen
   if (kIsWeb || Platform.isAndroid || Platform.isIOS) FlutterNativeSplash.remove();
-}
-
-/// Loads the environment variables
-Future<void> loadEnv() async {
-  await dotenv.load(fileName: 'dotenv');
 }
 
 /// Initializes the Supabase client

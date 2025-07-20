@@ -27,6 +27,9 @@ class GameRoomQuestion {
   /// The root details of this question
   final GameQuestion details;
 
+  /// Wether the user recommends the question
+  final bool? recommendation;
+
   /// Default constructor
   const GameRoomQuestion({
     required this.roomId,
@@ -36,6 +39,7 @@ class GameRoomQuestion {
     required this.selected,
     this.answer,
     this.playerPosition,
+    this.recommendation,
     required this.details
   });
 
@@ -49,7 +53,8 @@ class GameRoomQuestion {
       selected: json['selected'] as bool,
       answer: json['answer'] as bool?,
       playerPosition: json['player_position'] as int?,
-      details: GameQuestion.fromJson(Map<String, dynamic>.from(json['game_questions']))
+      details: GameQuestion.fromJson(Map<String, dynamic>.from(json['game_questions'])),
+      recommendation: json['recommendation'] as bool?
     );
   }
 
@@ -63,8 +68,10 @@ class GameRoomQuestion {
     bool? answer,
     int? playerPosition,
     GameQuestion? details,
+    bool? recommendation,
     bool removeAnswer = false,
-    bool removePlayerPosition = false
+    bool removePlayerPosition = false,
+    bool removeRecommendation = false
   }) {
     return GameRoomQuestion(
       roomId: roomId ?? this.roomId,
@@ -74,7 +81,8 @@ class GameRoomQuestion {
       selected: selected ?? this.selected,
       answer: removeAnswer ? null : answer ?? this.answer,
       playerPosition: removePlayerPosition ? null : this.playerPosition,
-      details: details ?? this.details
+      details: details ?? this.details,
+      recommendation: removeRecommendation ? null : recommendation ?? this.recommendation
     );
   }
 }

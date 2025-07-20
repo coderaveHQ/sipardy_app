@@ -30,6 +30,12 @@ class GameQuestion {
   /// The plain text of the answer in english
   final String answerEn;
 
+  /// The plain text of the question in italian
+  final String questionIt;
+
+  /// The plain text of the answer in italian
+  final String answerIt;
+
   /// Default constructor
   const GameQuestion({
     required this.id,
@@ -40,7 +46,9 @@ class GameQuestion {
     required this.questionDe,
     required this.answerDe,
     required this.questionEn,
-    required this.answerEn
+    required this.answerEn,
+    required this.questionIt,
+    required this.answerIt
   });
 
   /// Factory method for converting from JSON
@@ -54,7 +62,9 @@ class GameQuestion {
       questionDe: json['question_de'] as String,
       answerDe: json['answer_de'] as String,
       questionEn: json['question_en'] as String,
-      answerEn: json['answer_en'] as String
+      answerEn: json['answer_en'] as String,
+      questionIt: json['question_it'] as String,
+      answerIt: json['answer_it'] as String
     );
   }
 
@@ -68,7 +78,9 @@ class GameQuestion {
     String? questionDe,
     String? answerDe,
     String? questionEn,
-    String? answerEn
+    String? answerEn,
+    String? questionIt,
+    String? answerIt
   }) {
     return GameQuestion(
       id: id ?? this.id,
@@ -79,7 +91,9 @@ class GameQuestion {
       questionDe: questionDe ?? this.questionDe,
       answerDe: answerDe ?? this.answerDe,
       questionEn: questionEn ?? this.questionEn,
-      answerEn: answerEn ?? this.answerEn
+      answerEn: answerEn ?? this.answerEn,
+      questionIt: questionEn ?? this.questionIt,
+      answerIt: answerEn ?? this.answerIt
     );
   }
 }

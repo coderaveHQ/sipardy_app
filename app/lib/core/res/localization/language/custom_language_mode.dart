@@ -21,6 +21,11 @@ enum CustomLanguageMode {
   /// German
   de(
     id: 2
+  ),
+
+  /// Italian
+  it(
+    id: 3
   );
 
   /// An ID for the value
@@ -47,7 +52,8 @@ enum CustomLanguageMode {
     return switch (this) {
       CustomLanguageMode.system => _systemLanguageMode.languageData,
       CustomLanguageMode.en => const CustomLanguageData.en(),
-      CustomLanguageMode.de => const CustomLanguageData.de()
+      CustomLanguageMode.de => const CustomLanguageData.de(),
+      CustomLanguageMode.it => const CustomLanguageData.it()
     };
   }
 
@@ -56,6 +62,7 @@ enum CustomLanguageMode {
     final Locale systemLocale = SchedulerBinding.instance.platformDispatcher.locale;
     return switch (systemLocale.languageCode) {
       'de' => CustomLanguageMode.de,
+      'it' => CustomLanguageMode.it,
       _ => CustomLanguageMode.en
     };
   }
@@ -63,15 +70,18 @@ enum CustomLanguageMode {
   /// Helper for displaying localizable text dynamically
   String chooseLanguage({
     required String en,
-    required String de
+    required String de,
+    required String it
   }) {
     return switch (this) {
       CustomLanguageMode.system => _systemLanguageMode.chooseLanguage(
         en: en, 
-        de: de
+        de: de,
+        it: it
       ),
       CustomLanguageMode.en => en,
-      CustomLanguageMode.de => de
+      CustomLanguageMode.de => de,
+      CustomLanguageMode.it => it
     };
   }
 }

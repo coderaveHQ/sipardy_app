@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:collection/collection.dart';
+
 import 'package:sipardy_app/core/common/widgets/sp_chip.dart';
 import 'package:sipardy_app/core/res/theme/colors/sp_colors.dart';
 import 'package:sipardy_app/core/res/theme/spacing/sp_spacing.dart';
@@ -30,7 +32,7 @@ class CreateGameCategoriesList extends StatelessWidget {
     return Wrap(
       spacing: SPSpacing.md,
       runSpacing: SPSpacing.md,
-      children: categories.entries.map((MapEntry<GameCategory, bool> entry) {
+      children: categories.entries.sortedBy((MapEntry<GameCategory, bool> categoriesMapEntry) => categoriesMapEntry.key.name(context)) .map((MapEntry<GameCategory, bool> entry) {
         return SPChip.clickable(
           onPressed: () => onPressed?.call(entry.key),
           title: entry.key.name(context),

@@ -153,4 +153,45 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
 
     ref.watch(gameRoomIsSyncingNotifierProvider.notifier).setIsNotSyncing();
   }
+
+  /// Sets the recommendation to the database.
+  /// When something goes wrong the state will be reset
+  Future<void> setRecommendation({ required String questionId, required bool recommendation }) async {
+    final GameRoomQuestion currentQuestion = state.value!.questions.firstWhere((GameRoomQuestion question) => question.selected);
+    final bool? tempRecommendation = currentQuestion.recommendation;
+
+    void updateState({ required bool revert }) {
+      final List<GameRoomQuestion> updatedQuestions = state.value!.questions.map<GameRoomQuestion>((GameRoomQuestion question) {
+        if (question.questionId == currentQuestion.questionId) {
+          return question.copyWith(
+            recommendation: revert ? tempRecommendation : recommendation,
+            removeRecommendation: (revert ? tempRecommendation : recommendation) == null
+          );
+        }
+        return question;
+      }).toList();
+
+      state = AsyncValue.data(state.value!.copyWith(
+        questions: updatedQuestions
+      ));
+    }
+
+    updateState(revert: false);
+
+    ref.watch(gameRoomIsSyncingNotifierProvider.notifier).setIsSyncing();
+
+    try {
+      await Supabase.instance.client.rpc('app_set_recommendation', params: <String, dynamic>{
+        'in_room_id' : roomId,
+        'in_question_id' : questionId,
+        'in_recommendation' : recommendation
+      });
+    } catch (e) {
+      print(e);
+      updateState(revert: true);
+      state = AsyncValue.error(e, StackTrace.current);
+    }
+
+    ref.watch(gameRoomIsSyncingNotifierProvider.notifier).setIsNotSyncing();
+  }
 }

@@ -180,7 +180,7 @@ class CustomLanguageData {
     required this.menuJoinGameButtonTitle
   });
 
-  /// The english values
+  /// The English values
   const CustomLanguageData.en()
     : gameCategoryAnimals = 'Animals',
       gameCategoryArchitecture = 'Architecture',
@@ -220,7 +220,7 @@ class CustomLanguageData {
       createGameCreateRoom = 'Create room',
       createGameAddPlayers = '1. Add players',
       createGamePlayerName = 'Player name',
-      createGameChooseCategories = '2. Choose 5 catgeories',
+      createGameChooseCategories = '2. Choose 5 categories',
       createGameStartGame = '3. Start the game',
       createGameCreateGame = 'Start Game',
       createGameNoPlayersYet = 'No players, yet...',
@@ -232,11 +232,11 @@ class CustomLanguageData {
 
       instructionsAppBarTitle = 'Game instructions',
       instructionsOverview = "Here's everything you need to know:",
-      instructionsStep1Title = 'Schritt 1',
+      instructionsStep1Title = 'Step 1',
       instructionsStep1Description = 'Choose a card from a category. The number on the card corresponds to the difficulty level and the points to be won.',
-      instructionsStep2Title = 'Schritt 2',
+      instructionsStep2Title = 'Step 2',
       instructionsStep2Description = 'Answer the question',
-      instructionsStep3Title = 'Schritt 3',
+      instructionsStep3Title = 'Step 3',
       instructionsStep3Description = 'Check if you answered it correctly.',
       instructionsOptionalTitle = 'OPTIONAL',
       instructionsOptionalDescription = 'Distribute the number of points won as sips or drink them yourself if you answered the question incorrectly.',
@@ -269,7 +269,7 @@ class CustomLanguageData {
       menuCreateGameButtonTitle = 'Create',
       menuJoinGameButtonTitle = 'Join';
 
-  /// The german values
+  /// The German values
   const CustomLanguageData.de()
     : gameCategoryAnimals = 'Tiere',
       gameCategoryArchitecture = 'Architektur',
@@ -357,4 +357,93 @@ class CustomLanguageData {
       menuInstructions = 'Wähle aus, ob du ein neues Spiel erstellen- oder einem bestehenden beitreten willst.',
       menuCreateGameButtonTitle = 'Erstellen',
       menuJoinGameButtonTitle = 'Beitreten';
+
+  /// The Italian values
+  const CustomLanguageData.it()
+    : gameCategoryAnimals = 'Animali',
+      gameCategoryArchitecture = 'Architettura',
+      gameCategoryArt = 'Arte',
+      gameCategoryBoardGames = 'Giochi da tavolo',
+      gameCategoryCapitals = 'Capitali',
+      gameCategoryChemistry = 'Chimica',
+      gameCategoryCoding = 'Programmazione',
+      gameCategoryComics = 'Fumetti',
+      gameCategoryCulture = 'Cultura',
+      gameCategoryEconomics = 'Economia',
+      gameCategoryFamousPeople = 'Personaggi famosi',
+      gameCategoryFoodAndDrinks = 'Cibo e bevande',
+      gameCategoryFootball = 'Football',
+      gameCategoryGeography = 'Geografia',
+      gameCategoryHistory = 'Storia',
+      gameCategoryLanguages = 'Lingue',
+      gameCategoryLeagueOfLegends = 'League of Legends',
+      gameCategoryLiterature = 'Letteratura',
+      gameCategoryMath = 'Matematica',
+      gameCategoryMovies = 'Film',
+      gameCategoryMusic = 'Musica',
+      gameCategoryMythology = 'Mitologia',
+      gameCategoryNature = 'Natura',
+      gameCategoryPhysics = 'Fisica',
+      gameCategoryPolitics = 'Politica',
+      gameCategoryScience = 'Scienza',
+      gameCategorySoccer = 'Calcio',
+      gameCategorySpace = 'Spazio',
+      gameCategorySports = 'Sport',
+      gameCategoryTechnology = 'Tecnologia',
+      gameCategoryTvShows = 'Programmi TV',
+      gameCategoryVideoGames = 'Videogiochi',
+
+      successRoomCreated = 'Stanza creata! Ora puoi condividere il codice della stanza.',
+      
+      createGameCreateRoom = 'Crea stanza',
+      createGameAddPlayers = '1. Aggiungi giocatori',
+      createGamePlayerName = 'Nome del giocatore',
+      createGameChooseCategories = '2. Scegli 5 categorie',
+      createGameStartGame = '3. Inizia il gioco',
+      createGameCreateGame = 'Inizia gioco',
+      createGameNoPlayersYet = 'Ancora nessun giocatore...',
+      createGameClickToRemove = 'Clicca sul nome per rimuovere',
+
+      joinGameAppBarTitle = 'Unisciti alla stanza',
+      joinGameInstructions = 'Inserisci il codice della stanza per unirti a una partita.',
+      joinGameJoinGameButtonTitle = 'Unisciti',
+
+      instructionsAppBarTitle = 'Istruzioni di gioco',
+      instructionsOverview = 'Ecco tutto ciò che devi sapere:',
+      instructionsStep1Title = 'Passo 1',
+      instructionsStep1Description = 'Scegli una carta da una categoria. Il numero sulla carta corrisponde al livello di difficoltà e ai punti da vincere.',
+      instructionsStep2Title = 'Passo 2',
+      instructionsStep2Description = 'Rispondi alla domanda.',
+      instructionsStep3Title = 'Passo 3',
+      instructionsStep3Description = 'Verifica se hai risposto correttamente.',
+      instructionsOptionalTitle = 'OPZIONALE',
+      instructionsOptionalDescription = 'Distribuisci il numero di punti vinti come sorsi o bevili tu stesso se hai risposto alla domanda in modo errato.',
+      instructionsPrivacyPolicy = 'Informativa sulla privacy',
+      instructionsSupport = 'Supporto',
+
+      gameRoomAppBarTitlePrefix = 'Stanza:',
+      gameRoomEndCardTitle = 'BELLA PARTITA!',
+      gameRoomEndCardQuitGameButtonTitle = 'Esci dal gioco',
+      gameRoomQuestionDetailsTitle = 'Dettagli',
+      gameRoomQuestionDetailsQuestion = 'Domanda:',
+      gameRoomQuestionDetailsAnswer = 'Risposta:',
+      gameRoomQuestionDetailsAnswered = 'Risposto:',
+      gameRoomQuestionDetailsCorrect = 'Corretto:',
+      gameRoomQuestionDetailsRight = 'Giusto',
+      gameRoomQuestionDetailsWrong = 'Sbagliato',
+      gameRoomQuestionDetailsCloseButtonTitle = 'OK',
+      gameRoomPlayersPoints = 'PUNTI',
+      gameRoomPlayerTurn = 'IL TUO TURNO:',
+      gameRoomActionChooseOption = 'Scegli un''opzione.',
+      gameRoomActionQuestion = 'DOMANDA:',
+      gameRoomActionShowAnswer = 'Mostra risposta',
+      gameRoomActionAnswer = 'RISPOSTA:',
+      gameRoomActionIsCorrect = 'La domanda è stata risposta correttamente?',
+      gameRoomActionRight = 'Giusto',
+      gameRoomActionWrong = 'Sbagliato',
+
+      menuAppBarTitle = 'Menu di gioco',
+      menuInstructions = 'Scegli se vuoi creare un nuovo gioco o unirti a uno esistente.',
+      menuCreateGameButtonTitle = 'Crea',
+      menuJoinGameButtonTitle = 'Unisciti';
 }

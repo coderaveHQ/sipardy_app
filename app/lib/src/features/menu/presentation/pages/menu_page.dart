@@ -72,7 +72,7 @@ class _MenuPageState extends State<MenuPage> {
               SPMaxSize.size(
                 size: const Size.square(200.0), 
                 child: Image.asset(
-                  'assets/images/logo.png',
+                  'images/logo.png',
                   width: context.screenWidth / 2.5,
                   height: context.screenWidth / 2.5
                 )

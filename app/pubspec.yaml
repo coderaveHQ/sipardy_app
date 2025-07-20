@@ -10,9 +10,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # environment variables
-  flutter_dotenv: ^5.2.1
-
   # Local persistence
   shared_preferences: ^2.5.2
 
@@ -65,38 +62,36 @@ flutter:
   uses-material-design: true
 
   assets:
-    - dotenv
-
-    - assets/images/
+    - images/
 
   fonts:
     - family: Switzer
       fonts:
-        - asset: assets/fonts/Switzer-Black.otf
-        - asset: assets/fonts/Switzer-BlackItalic.otf
+        - asset: fonts/Switzer-Black.otf
+        - asset: fonts/Switzer-BlackItalic.otf
           style: italic
-        - asset: assets/fonts/Switzer-Bold.otf
-        - asset: assets/fonts/Switzer-BoldItalic.otf
+        - asset: fonts/Switzer-Bold.otf
+        - asset: fonts/Switzer-BoldItalic.otf
           style: italic
-        - asset: assets/fonts/Switzer-Extrabold.otf
-        - asset: assets/fonts/Switzer-ExtraboldItalic.otf
+        - asset: fonts/Switzer-Extrabold.otf
+        - asset: fonts/Switzer-ExtraboldItalic.otf
           style: italic
-        - asset: assets/fonts/Switzer-Extralight.otf
-        - asset: assets/fonts/Switzer-ExtralightItalic.otf
+        - asset: fonts/Switzer-Extralight.otf
+        - asset: fonts/Switzer-ExtralightItalic.otf
           style: italic
-        - asset: assets/fonts/Switzer-Italic.otf
+        - asset: fonts/Switzer-Italic.otf
           style: italic
-        - asset: assets/fonts/Switzer-Light.otf
-        - asset: assets/fonts/Switzer-LightItalic.otf
+        - asset: fonts/Switzer-Light.otf
+        - asset: fonts/Switzer-LightItalic.otf
           style: italic
-        - asset: assets/fonts/Switzer-Medium.otf
-        - asset: assets/fonts/Switzer-MediumItalic.otf
+        - asset: fonts/Switzer-Medium.otf
+        - asset: fonts/Switzer-MediumItalic.otf
           style: italic
-        - asset: assets/fonts/Switzer-Regular.otf
-        - asset: assets/fonts/Switzer-Semibold.otf
-        - asset: assets/fonts/Switzer-SemiboldItalic.otf
+        - asset: fonts/Switzer-Regular.otf
+        - asset: fonts/Switzer-Semibold.otf
+        - asset: fonts/Switzer-SemiboldItalic.otf
           style: italic
-        - asset: assets/fonts/Switzer-Thin.otf
-        - asset: assets/fonts/Switzer-ThinItalic.otf
+        - asset: fonts/Switzer-Thin.otf
+        - asset: fonts/Switzer-ThinItalic.otf
           style: italic
 

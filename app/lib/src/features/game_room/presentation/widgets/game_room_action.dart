@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import 'package:sipardy_app/core/common/widgets/sp_button.dart';
 import 'package:sipardy_app/core/common/widgets/sp_text.dart';
@@ -30,6 +31,9 @@ class GameRoomAction extends StatelessWidget {
 
   /// Callback for when indicating wether the answer was correct
   final void Function(bool) onAnswer;
+
+  /// Callback for when setting a recommendation
+  final void Function(bool) onSetRecommendation;
   
   /// Default constructor
   const GameRoomAction({ 
@@ -37,7 +41,8 @@ class GameRoomAction extends StatelessWidget {
     required this.action,
     this.question,
     required this.onShowAnswer,
-    required this.onAnswer
+    required this.onAnswer,
+    required this.onSetRecommendation
   });
 
   @override
@@ -63,16 +68,20 @@ class GameRoomAction extends StatelessWidget {
         GameAction.showQuestion => GameRoomActionShowQuestion(
           question: localization.chooseLanguage(
             en: question!.details.questionEn,
-            de: question!.details.questionDe
+            de: question!.details.questionDe,
+            it: question!.details.questionIt
           ),
           onShowAnswer: onShowAnswer
         ),
         GameAction.showAnswer => GameRoomActionShowAnswer(
           answer: localization.chooseLanguage(
             en: question!.details.answerEn,
-            de: question!.details.answerDe
+            de: question!.details.answerDe,
+            it: question!.details.answerIt
           ),
-          onAnswer: onAnswer
+          onAnswer: onAnswer,
+          recommendation: question!.recommendation,
+          onSetRecommendation: onSetRecommendation
         )
       }
     );
@@ -171,11 +180,19 @@ class GameRoomActionShowAnswer extends ConsumerWidget {
   /// Callback for when indicating wether the answer was correct
   final void Function(bool) onAnswer;
 
+  /// Wether the user recommends the question
+  final bool? recommendation;
+
+  /// Callback for setting a recommendation
+  final void Function(bool) onSetRecommendation;
+
   /// Default constructor
   const GameRoomActionShowAnswer({ 
     super.key,
     required this.answer,
-    required this.onAnswer
+    required this.onAnswer,
+    required this.recommendation,
+    required this.onSetRecommendation
   });
 
   @override
@@ -208,6 +225,24 @@ class GameRoomActionShowAnswer extends ConsumerWidget {
                   fontWeight: FontWeight.w400,
                   color: SPColors.white
                 )
+              )
+            ),
+            const Gap(SPSpacing.md),
+            GestureDetector(
+              onTap: () => onSetRecommendation.call(true),
+              child: Icon(
+                LucideIcons.thumbsUp,
+                color: recommendation == true ? SPColors.green500 : SPColors.gray100,
+                size: 20.0
+              )
+            ),
+            const Gap(SPSpacing.lg),
+            GestureDetector(
+              onTap: () => onSetRecommendation.call(false),
+              child: Icon(
+                LucideIcons.thumbsDown,
+                color: recommendation == false ? SPColors.red500 : SPColors.gray100,
+                size: 20.0
               )
             )
           ]

@@ -14,7 +14,8 @@ extension ObjectExtension on Object {
     if (this is IError) return (this as IError).message.call(languageMode);
     return languageMode.chooseLanguage(
       en: 'An unknown error occured.', 
-      de: 'Ein unbekannter Fehler ist aufgetreten.'
+      de: 'Ein unbekannter Fehler ist aufgetreten.',
+      it: 'Si è verificato un errore sconosciuto.'
     );
   }
 

@@ -18,9 +18,11 @@ class CustomLocalizationData {
   /// Helper for displaying localizable text dynamically
   String chooseLanguage({
     required String en,
-    required String de
+    required String de,
+    required String it
   }) => languageMode.chooseLanguage(
     en: en, 
-    de: de
+    de: de,
+    it: it
   );
 }
