@@ -58,7 +58,6 @@ class SPPinPut extends StatelessWidget {
       length: length,
       defaultPinTheme: defaultPinTheme,
       focusedPinTheme: focusedPinTheme,
-      autofocus: true,
       onCompleted: onCompleted
     );
   }

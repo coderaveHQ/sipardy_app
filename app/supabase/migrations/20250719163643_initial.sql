@@ -390,7 +390,9 @@ $$ LANGUAGE plpgsql;
 
 -- [FUNCTION] to update the game questions recommendation counters
 CREATE OR REPLACE FUNCTION update_game_questions_recommendation()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER 
+SECURITY DEFINER
+AS $$
 BEGIN
     IF OLD.recommendation IS DISTINCT FROM NEW.recommendation THEN
         IF OLD.recommendation IS NULL AND NEW.recommendation = TRUE THEN
@@ -400,6 +402,14 @@ BEGIN
         ELSIF OLD.recommendation IS NULL AND NEW.recommendation = FALSE THEN
             UPDATE public.game_questions
             SET dislike_count = dislike_count + 1
+            WHERE id = NEW.question_id;
+        ELSIF OLD.recommendation = TRUE AND NEW.recommendation IS NULL THEN
+            UPDATE public.game_questions
+            SET like_count = like_count - 1
+            WHERE id = NEW.question_id;
+        ELSIF OLD.recommendation = FALSE AND NEW.recommendation IS NULL THEN
+            UPDATE public.game_questions
+            SET dislike_count = dislike_count - 1
             WHERE id = NEW.question_id;
         ELSIF NEW.recommendation = TRUE THEN 
             UPDATE public.game_questions

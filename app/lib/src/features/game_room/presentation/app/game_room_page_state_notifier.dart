@@ -164,8 +164,8 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
       final List<GameRoomQuestion> updatedQuestions = state.value!.questions.map<GameRoomQuestion>((GameRoomQuestion question) {
         if (question.questionId == currentQuestion.questionId) {
           return question.copyWith(
-            recommendation: revert ? tempRecommendation : recommendation,
-            removeRecommendation: (revert ? tempRecommendation : recommendation) == null
+            recommendation: revert ? tempRecommendation : tempRecommendation == recommendation ? null : recommendation,
+            removeRecommendation: revert ? tempRecommendation == null : tempRecommendation == recommendation
           );
         }
         return question;
@@ -187,7 +187,6 @@ class GameRoomPageStateNotifier extends _$GameRoomPageStateNotifier {
         'in_recommendation' : recommendation
       });
     } catch (e) {
-      print(e);
       updateState(revert: true);
       state = AsyncValue.error(e, StackTrace.current);
     }
