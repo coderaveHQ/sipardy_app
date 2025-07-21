@@ -261,7 +261,10 @@ BEGIN
         FOR curr_points IN 1..5 LOOP
             SELECT id
             FROM public.game_questions
-            WHERE game_questions.category = selected_category::public.game_category AND game_questions.points = curr_points AND game_questions.like_count >= game_questions.dislike_count
+            WHERE game_questions.category = selected_category::public.game_category AND game_questions.points = curr_points AND NOT (
+                (game_questions.like_count = 0 AND game_questions.dislike_count >= 3) 
+                OR (game_questions.like_count > 0 AND game_questions.dislike_count >= 3 * game_questions.like_count)
+            )
             ORDER BY random()
             LIMIT 1
             INTO q_id;
