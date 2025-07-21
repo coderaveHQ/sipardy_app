@@ -166,6 +166,16 @@ enum GameCategory {
   /// Video Games
   videoGames(
     dbValue: 'video_games',
+  ),
+
+  /// Pokémon
+  pokemon(
+    dbValue: 'pokemon',
+  ),
+
+  /// Anime
+  anime(
+    dbValue: 'anime',
   );
 
   /// Database value
@@ -211,7 +221,9 @@ enum GameCategory {
       GameCategory.sports => language.gameCategorySports,
       GameCategory.technology => language.gameCategoryTechnology,
       GameCategory.tvShows => language.gameCategoryTvShows,
-      GameCategory.videoGames => language.gameCategoryVideoGames
+      GameCategory.videoGames => language.gameCategoryVideoGames,
+      GameCategory.pokemon => language.gameCategoryPokemon,
+      GameCategory.anime => language.gameCategoryAnime
     };
   }
 

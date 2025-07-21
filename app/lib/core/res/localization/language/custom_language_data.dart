@@ -34,6 +34,8 @@ class CustomLanguageData {
   final String gameCategoryTechnology;
   final String gameCategoryTvShows;
   final String gameCategoryVideoGames;
+  final String gameCategoryPokemon;
+  final String gameCategoryAnime;
 
   final String successRoomCreated;
 
@@ -124,6 +126,8 @@ class CustomLanguageData {
     required this.gameCategoryTechnology,
     required this.gameCategoryTvShows,
     required this.gameCategoryVideoGames,
+    required this.gameCategoryPokemon,
+    required this.gameCategoryAnime,
 
     required this.successRoomCreated,
     
@@ -214,6 +218,8 @@ class CustomLanguageData {
       gameCategoryTechnology = 'Technology',
       gameCategoryTvShows = 'TV Shows',
       gameCategoryVideoGames = 'Video Games',
+      gameCategoryPokemon = 'Pokémon',
+      gameCategoryAnime = 'Anime',
       
       successRoomCreated = 'Room created! You can share the room code now.',
       
@@ -303,6 +309,8 @@ class CustomLanguageData {
       gameCategoryTechnology = 'Technologie',
       gameCategoryTvShows = 'Serien',
       gameCategoryVideoGames = 'Videospiele',
+      gameCategoryPokemon = 'Pokémon',
+      gameCategoryAnime = 'Anime',
 
       successRoomCreated = 'Raum erstellt! Du kannst nun den Raum-Code teilen.',
       
@@ -392,6 +400,8 @@ class CustomLanguageData {
       gameCategoryTechnology = 'Tecnologia',
       gameCategoryTvShows = 'Programmi TV',
       gameCategoryVideoGames = 'Videogiochi',
+      gameCategoryPokemon = 'Pokémon',
+      gameCategoryAnime = 'Anime',
 
       successRoomCreated = 'Stanza creata! Ora puoi condividere il codice della stanza.',
       
