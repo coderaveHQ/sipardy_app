@@ -128,7 +128,6 @@ class _CreateGamePageState extends ConsumerState<CreateGamePage> {
                     icon: LucideIcons.tag,
                     hint: language.createGamePlayerName,
                     isEnabled: !pageState.isCreatingGame,
-                    autofocus: true,
                     focusNode: _playerNameFocusNode
                   )
                 ),
