@@ -17,11 +17,6 @@ jobs:
     # Run on latest Ubuntu instance
     runs-on: ubuntu-latest
 
-    # Setup environment variables
-    env:
-      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-
     steps:
 
       # Checkout repository
