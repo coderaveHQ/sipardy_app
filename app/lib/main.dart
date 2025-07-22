@@ -25,6 +25,9 @@ Future<void> main() async {
   // Initialize the Supabase client
   await initializeSupabase();
 
+  print(Env.supabaseUrl);
+  print(Env.supabaseAnonKey);
+
   final Preferences preferences = await _setupPreferences();
 
   // Run the application
