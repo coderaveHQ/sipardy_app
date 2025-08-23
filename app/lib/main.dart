@@ -45,8 +45,8 @@ Future<void> main() async {
 
 /// Initializes the Supabase client
 Future<void> initializeSupabase() async {
-  const String supabaseUrl = String.fromEnvironment('SUPABASE_URL');
-  const String supabaseKey = String.fromEnvironment(kDebugMode ? 'SUPABASE_ANON_KEY' : 'SUPABASE_PUBLISHABLE_KEY');
+  const String supabaseUrl = kDebugMode ? 'http://127.0.0.1:54321' : 'https://jjfaxibrpacbjyjqguug.supabase.co';
+  const String supabaseKey = kDebugMode ? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' : 'sb_publishable_vlcM3Zm0GtRtHkJDa7ABRA_Ux6z8OrH';
   
   await Supabase.initialize(
     url: supabaseUrl,
