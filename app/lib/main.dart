@@ -47,6 +47,11 @@ Future<void> main() async {
 Future<void> initializeSupabase() async {
   const String supabaseUrl = String.fromEnvironment('SUPABASE_URL');
   const String supabaseKey = String.fromEnvironment(kDebugMode ? 'SUPABASE_ANON_KEY' : 'SUPABASE_PUBLISHABLE_KEY');
+  
+  print(kDebugMode);
+  print(supabaseUrl);
+  print(supabaseKey);
+  
   await Supabase.initialize(
     url: supabaseUrl,
     anonKey: supabaseKey,
