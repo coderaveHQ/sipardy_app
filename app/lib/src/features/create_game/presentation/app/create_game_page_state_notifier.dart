@@ -81,7 +81,6 @@ class CreateGamePageStateNotifier extends _$CreateGamePageStateNotifier {
       state = state.copyWith(isCreatingGame: false);
       return roomId;
     } catch (e) {
-      print(e.toString());
       state = state.copyWith(
         isCreatingGame: false,
         error: e

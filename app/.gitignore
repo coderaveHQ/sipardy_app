@@ -44,8 +44,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# environment variables
-.env.local
+# dotenvx
+.env.dev
+.env.prod
 
 # build_runner generated files
 *.g.dart

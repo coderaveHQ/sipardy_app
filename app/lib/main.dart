@@ -10,7 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:sipardy_app/core/services/preferences.dart';
-import 'package:sipardy_app/core/utils/env.dart';
 import 'package:sipardy_app/src/app.dart';
 
 /// The main entry point for the application
@@ -24,9 +23,6 @@ Future<void> main() async {
 
   // Initialize the Supabase client
   await initializeSupabase();
-
-  print('URL: ${Env.supabaseUrl}');
-  print('Key: ${Env.supabaseAnonKey}');
 
   final Preferences preferences = await _setupPreferences();
 
@@ -49,9 +45,11 @@ Future<void> main() async {
 
 /// Initializes the Supabase client
 Future<void> initializeSupabase() async {
+  const String supabaseUrl = String.fromEnvironment('SUPABASE_URL');
+  const String supabaseKey = String.fromEnvironment(kDebugMode ? 'SUPABASE_ANON_KEY' : 'SUPABASE_PUBLISHABLE_KEY');
   await Supabase.initialize(
-    url: 'https://jjfaxibrpacbjyjqguug.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqZmF4aWJycGFjYmp5anFndXVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1OTExMTQsImV4cCI6MjA1MTE2NzExNH0.e_TQ6ubEL_lNCAygDfOknlTTcfLSVySYDYAJWaVJmUg',
+    url: supabaseUrl,
+    anonKey: supabaseKey,
     authOptions: const FlutterAuthClientOptions(detectSessionInUri: false)
   );
 }

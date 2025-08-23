@@ -2,15 +2,23 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Flutter (Chrome)",
+      "name": "Flutter | dev",
       "type": "dart",
       "request": "launch",
       "program": "app/lib/main.dart",
       "flutterMode": "debug",
-      "deviceId": "chrome",
       "args": [
-        "--dart-define-from-file=.env.local",
-        "--web-port=8080"
+        "--dart-define-from-file=.env.dev"
+      ]
+    },
+    {
+      "name": "Flutter | prod",
+      "type": "dart",
+      "request": "launch",
+      "program": "app/lib/main.dart",
+      "flutterMode": "debug",
+      "args": [
+        "--dart-define-from-file=.env.prod"
       ]
     }
   ]

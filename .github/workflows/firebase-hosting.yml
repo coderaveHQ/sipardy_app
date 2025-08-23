@@ -41,7 +41,10 @@ jobs:
 
       # Build with secrets
       - name: Build web with dart-define
-        run: flutter build web
+        run: |
+          flutter build web \
+            --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+            --dart-define=SUPABASE_PUBLISHABLE_KEY=${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
         working-directory: ./app
 
       # Deploy
